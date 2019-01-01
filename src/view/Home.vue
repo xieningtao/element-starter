@@ -3,6 +3,7 @@
         <el-tab-pane name="one">
             <span slot="label"><i class="el-icon-date" style="padding-right: 5px"></i> 所有项目</span>
 
+            <home-banner></home-banner>
             <el-container>
                 <el-main>
                     <div v-show="seen" style="width: 100%;height: 300px" element-loading-text="拼命加载中"
@@ -28,13 +29,14 @@
             </el-container>
         </el-tab-pane>
         <el-tab-pane name="second">
-            <span slot="label"><i class="el-icon-picture" style="padding-right: 5px"/>花田</span>
+            <span slot="label"><i class="el-icon-picture" style="padding-right: 5px"/>Java</span>
 
-            <el-card v-for="card in 4" :key="card" class="box-card">
-                <div v-for="o in 4" :key="o" class="text item">
-                    {{'列表内容 ' + o }}
-                </div>
-            </el-card>
+            <!--<el-card v-for="card in 4" :key="card" class="box-card">-->
+                <!--<div v-for="o in 4" :key="o" class="text item">-->
+                    <!--{{'列表内容 ' + o }}-->
+                <!--</div>-->
+            <!--</el-card>-->
+            <article-java></article-java>
 
         </el-tab-pane>
 
@@ -50,91 +52,104 @@
         </el-tab-pane>
 
         <el-tab-pane label="同城" name="fourth">
-            <el-table
-                    :data="tableData"
-                    style="width: 100%">
-                <el-table-column
-                        prop="date"
-                        label="日期"
-                        width="180">
-                </el-table-column>
-                <el-table-column
-                        prop="name"
-                        label="姓名"
-                        width="180">
-                </el-table-column>
-                <el-table-column
-                        prop="address"
-                        label="地址">
-                </el-table-column>
-            </el-table>
+
         </el-tab-pane>
     </el-tabs>
 </template>
 
 <script>
-export default {
-    data () {
-        return {
-            activeName: 'one',
-            seen: true,
-            loading: true,
-            error: false,
-            projectData: [],
-            tableData: [{
-                date: '2016-05-02',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1518 弄'
-            }, {
-                date: '2016-05-04',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1517 弄'
-            }, {
-                date: '2016-05-01',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1519 弄'
-            }, {
-                date: '2016-05-03',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1516 弄'
-            }]
-        };
-    },
-    mounted: function () {
+    import {mapState, mapActions} from 'vuex'
+    import HomeBanner from "./HomeBanner"
+    import ArticleJava from "./ArticleJava.vue"
+
+    export default {
+
+        data() {
+            return {
+                activeName: 'one',
+                seen: true,
+                loading: true,
+                error: false,
+//            projectData: [],
+                tableData: [{
+                    date: '2016-05-02',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1518 弄'
+                }, {
+                    date: '2016-05-04',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1517 弄'
+                }, {
+                    date: '2016-05-01',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1519 弄'
+                }, {
+                    date: '2016-05-03',
+                    name: '王小虎',
+                    address: '上海市普陀区金沙江路 1516 弄'
+                }]
+            };
+        },
+        created: function () {
 //            setTimeout (() => {
 //                this.loading = false
 //                this.seen = false
 //                this.projectData=[{"repo":"test","branch":"develop","no":"1"}]
 //            }, 2000);
-        this.loadProject ("src/file/config")
-        //request
-    },
-    methods: {
-        handleClick (tab, event) {
-            console.log (tab, event);
-        }
-        ,
-        retry () {
-            this.loadProject ("src/file/config.txt")
-        },
-        loadProject (path) {
-            //发送get请求
-            console.info ("start request")
-            this.$http.get (path, {_timeout: 1000}).then (function (res) {
-                console.log ("res: " + JSON.stringify (res.body))
+            console.log("create...")
+            debugger
+            if (this.projectData == null || this.projectData.length == 0) {
+                this.loadProject("src/file/config.txt")
+            } else {
                 this.loading = false
                 this.seen = false
                 this.error = false
-                this.projectData = res.body;
-            }, function () {
-                console.log ('请求失败处理');
-                this.error = true
-                this.loading = false
-                this.seen = false
-            });
+            }
+            //request
         },
+        computed: mapState({
+            projectData(state) {
+                console.log("projectData state");
+                return state.repos.allRepos
+
+            }
+
+        }),
+
+        components:{
+            HomeBanner,
+            ArticleJava
+        },
+
+        methods: {
+            handleClick(tab, event) {
+                console.log(tab, event);
+            }
+            ,
+            retry() {
+                this.loadProject("src/file/config.txt")
+            },
+
+            loadProject(path) {
+                //发送get请求
+                console.info("start request")
+                this.$http.get(path, {_timeout: 1000}).then(function (res) {
+                    console.log("res: " + JSON.stringify(res.body))
+                    this.loading = false
+                    this.seen = false
+                    this.error = false
+//                this.projectData = res.body;
+                    //update store
+                    this.$store.dispatch("repos/storeAllRepo", res.body)
+                }, function () {
+                    console.log('请求失败处理');
+                    this.error = true
+                    this.loading = false
+                    this.seen = false
+                });
+            },
+        }
     }
-}
 </script>
 
 <style type="text/scss" lang="scss">
@@ -173,4 +188,6 @@ export default {
         width: auto;
         margin-top: 10px;
     }
+
+
 </style>
