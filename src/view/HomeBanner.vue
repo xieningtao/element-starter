@@ -1,5 +1,5 @@
 <template>
-    <el-carousel :interval="1000" type="card" height="300px">
+    <el-carousel :interval="6000" type="card" height="300px">
         <el-carousel-item v-for="item in banners">
             <a :href="item.link" target="view_window">
                 <img :src="item.url"/>

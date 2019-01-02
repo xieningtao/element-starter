@@ -1,66 +1,77 @@
 <template>
-    <el-tabs v-model="activeName" class="theme1" @tab-click="handleClick">
-        <el-tab-pane name="one">
-            <span slot="label"><i class="el-icon-date" style="padding-right: 5px"></i> 所有项目</span>
+    <el-container>
+        <el-main>
 
-            <home-banner></home-banner>
-            <el-container>
-                <el-main>
-                    <div v-show="seen" style="width: 100%;height: 300px" element-loading-text="拼命加载中"
-                         v-loading="loading"></div>
+            <el-tabs v-model="activeName" class="theme1" @tab-click="handleClick">
+                <el-tab-pane name="one">
+                    <span slot="label"><i class="el-icon-date" style="padding-right: 5px"></i> 所有项目</span>
 
-                    <div v-show="error" style="width: 100%;height: 300px;text-align: center">
-                        <el-button @click="retry">加载失败,点击重试</el-button>
-                    </div>
+                    <home-banner></home-banner>
+                    <el-container>
+                        <el-main>
+                            <div v-show="seen" style="width: 100%;height: 300px" element-loading-text="拼命加载中"
+                                 v-loading="loading"></div>
 
-                    <el-card v-for="card in projectData" class="box-card">
-                        <p>检测仓库：{{card.repo}}</p>
-                        <p>当前检测分支：{{card.branch}}</p>
-                        <p>当前合理单号：{{card.no}}</p>
-                    </el-card>
-                </el-main>
-                <router-link to="/edit">
-                    <div style="display: block;position: fixed;right: 10px;bottom: 10px">
-                        <el-button type="primary" icon="el-icon-edit" :round=true>
-                            添加
-                        </el-button>
-                    </div>
-                </router-link>
-            </el-container>
-        </el-tab-pane>
-        <el-tab-pane name="second">
-            <span slot="label"><i class="el-icon-picture" style="padding-right: 5px"/>Java</span>
+                            <div v-show="error" style="width: 100%;height: 300px;text-align: center">
+                                <el-button @click="retry">加载失败,点击重试</el-button>
+                            </div>
 
-            <!--<el-card v-for="card in 4" :key="card" class="box-card">-->
-                <!--<div v-for="o in 4" :key="o" class="text item">-->
+                            <el-card v-for="card in projectData" class="box-card">
+                                <p>检测仓库：{{card.repo}}</p>
+                                <p>当前检测分支：{{card.branch}}</p>
+                                <p>当前合理单号：{{card.no}}</p>
+                            </el-card>
+                        </el-main>
+
+                    </el-container>
+                </el-tab-pane>
+                <el-tab-pane name="second">
+                    <span slot="label"><i class="el-icon-picture" style="padding-right: 5px"/>Java</span>
+
+                    <!--<el-card v-for="card in 4" :key="card" class="box-card">-->
+                    <!--<div v-for="o in 4" :key="o" class="text item">-->
                     <!--{{'列表内容 ' + o }}-->
-                <!--</div>-->
-            <!--</el-card>-->
-            <article-list></article-list>
+                    <!--</div>-->
+                    <!--</el-card>-->
+                    <article-list></article-list>
 
-        </el-tab-pane>
+                </el-tab-pane>
 
-        <el-tab-pane label="美聊" name="third">
+                <el-tab-pane label="美聊" name="third">
 
-            <ul>
-                <li>jlfsjkf</li>
-                <li>jlfsjkf</li>
-                <li>jlfsjkf</li>
-                <li>jlfsjkf</li>
-                <li>jlfsjkf</li>
-            </ul>
-        </el-tab-pane>
+                    <ul>
+                        <li>jlfsjkf</li>
+                        <li>jlfsjkf</li>
+                        <li>jlfsjkf</li>
+                        <li>jlfsjkf</li>
+                        <li>jlfsjkf</li>
+                    </ul>
+                </el-tab-pane>
 
-        <el-tab-pane label="同城" name="fourth">
+                <el-tab-pane label="同城" name="fourth">
 
-        </el-tab-pane>
-    </el-tabs>
+                </el-tab-pane>
+            </el-tabs>
+        </el-main>
+        <el-footer>
+            <router-link to="/addArticle">
+                <div style="display: block;position: fixed;right: 10px;bottom: 10px">
+                    <el-button type="primary" icon="el-icon-edit" :round=true>
+                        添加
+                    </el-button>
+                </div>
+            </router-link>
+        </el-footer>
+    </el-container>
 </template>
 
 <script>
     import {mapState, mapActions} from 'vuex'
     import HomeBanner from "./HomeBanner"
     import ArticleList from "./ArticleList.vue"
+    import ElContainer from "../../node_modules/element-ui/packages/container/src/main.vue";
+    import ElFooter from "../../node_modules/element-ui/packages/footer/src/main.vue";
+    import ElMain from "../../node_modules/element-ui/packages/main/src/main.vue";
 
     export default {
 
@@ -116,7 +127,10 @@
 
         }),
 
-        components:{
+        components: {
+            ElMain,
+            ElFooter,
+            ElContainer,
             HomeBanner,
             ArticleList
         },

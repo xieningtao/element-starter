@@ -6,7 +6,6 @@
 
         <el-main>
             <div>
-                <mavon-editor @change="writeData"/>
                 <mavon-editor v-model="content" :subfield="false" :defaultOpen="defaultData" :toolbarsFlag="false" :boxShadow="false"  />
             </div>
         </el-main>
@@ -27,10 +26,22 @@
     export default {
         data () {
             return {
-                content: "# fjskfj" +
-                "\nThe time of **NOW** is :",
+                content: "",
                 defaultData: "preview"
             }
+        },
+        created: function (){
+            var param = this.$route.params;
+            const query = Bmob.Query('Article');
+            const objectId=param.id
+            query.get(objectId).then(res => {
+                console.log(JSON.stringify(res))
+                this.content=res.content
+
+            }).catch(err => {
+                console.log(err)
+
+            })
         },
         methods:{
             writeData(value,render){

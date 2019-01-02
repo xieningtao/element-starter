@@ -40,10 +40,10 @@
         },
 
         methods:{
-            jumpToDetail({title}){
+            jumpToDetail({title,objectId}){
                 console.info("method->jumpToDetail title "+title)
-                const id = 123;
-                this.$router.push({ path: `articleDetail/${id}`})
+                const id = objectId;
+                this.$router.push({ name: 'articleDetail',params:{id:id}})
             },
             testClick(event){
               console.info("testClick event")

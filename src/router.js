@@ -1,5 +1,6 @@
 import Edite from './view/Edit.vue'
 import Home from "./view/Home.vue"
+import AddArticle from "./view/AddArticle.vue"
 import ArticleDetail from "./view/ArticleDetail.vue"
 import VueRouter from 'vue-router'
 
@@ -13,8 +14,13 @@ const routes = [
         component: Home
     },
     {
+      path:"/addArticle",
+      component:AddArticle
+    },
+    {
         path: "/articleDetail/:id",
         component: ArticleDetail,
+        name:"articleDetail"
     }
 ]
 const router = new VueRouter ({
