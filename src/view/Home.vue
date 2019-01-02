@@ -36,7 +36,7 @@
                     <!--{{'列表内容 ' + o }}-->
                 <!--</div>-->
             <!--</el-card>-->
-            <article-java></article-java>
+            <article-list></article-list>
 
         </el-tab-pane>
 
@@ -60,13 +60,13 @@
 <script>
     import {mapState, mapActions} from 'vuex'
     import HomeBanner from "./HomeBanner"
-    import ArticleJava from "./ArticleJava.vue"
+    import ArticleList from "./ArticleList.vue"
 
     export default {
 
         data() {
             return {
-                activeName: 'one',
+                activeName: 'second',
                 seen: true,
                 loading: true,
                 error: false,
@@ -118,7 +118,7 @@
 
         components:{
             HomeBanner,
-            ArticleJava
+            ArticleList
         },
 
         methods: {

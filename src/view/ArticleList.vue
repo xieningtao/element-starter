@@ -8,7 +8,7 @@
                 <el-button @click="retry">加载失败,点击重试</el-button>
             </div>
 
-            <el-card v-for="article in javaArticles" class="box-card">
+            <el-card v-for="article in javaArticles" class="box-card" @click.native="jumpToDetail(article)">
                 <h1>{{article.title}}</h1>
                 <p>{{article.diggest}}</p>
             </el-card>
@@ -40,6 +40,14 @@
         },
 
         methods:{
+            jumpToDetail({title}){
+                console.info("method->jumpToDetail title "+title)
+                const id = 123;
+                this.$router.push({ path: `articleDetail/${id}`})
+            },
+            testClick(event){
+              console.info("testClick event")
+            },
             retry(){
 
             },
