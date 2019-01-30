@@ -1,52 +1,50 @@
 <template>
-    <el-container>
-        <el-header>
-            <h1>this is header</h1>
+    <el-container style="height: 100%">
+        <el-header style="display: flex;justify-content: center;align-items: center">
+            <h1>{{title}}</h1>
         </el-header>
 
-        <el-main>
-            <div>
-                <mavon-editor v-model="content" :subfield="false" :defaultOpen="defaultData" :toolbarsFlag="false" :boxShadow="false"  />
-            </div>
+        <el-main class="markdown-edit-container">
+            <mavon-editor style="width:100%;height: 100%" v-model="content" :subfield="false"
+                          :defaultOpen="defaultData" :toolbarsFlag="false" :boxShadow="false"/>
+            <!--<div style="width:100%;display: flex;justify-content: center;align-items: center" v-html="myRender"></div>-->
         </el-main>
-
-        <el-footer>
-
-        </el-footer>
     </el-container>
 </template>
 
 
 <script>
-    //    import MavonEditor from 'mavon-editor'
     import 'mavon-editor/dist/css/index.css'
-
     var mavonEditor = require ('mavon-editor')
 
     export default {
         data () {
             return {
                 content: "",
+                myRender: "",
+                title: "",
                 defaultData: "preview"
             }
         },
-        created: function (){
+        created: function () {
             var param = this.$route.params;
-            const query = Bmob.Query('Article');
-            const objectId=param.id
-            query.get(objectId).then(res => {
-                console.log(JSON.stringify(res))
-                this.content=res.content
+            const query = Bmob.Query ('Article');
+            const objectId = param.id
+            query.get (objectId).then (res => {
+                console.log (JSON.stringify (res))
+                this.content = res.content
+                this.myRender = res.render
+                this.title = res.title
 
-            }).catch(err => {
-                console.log(err)
+            }).catch (err => {
+                console.log (err)
 
             })
         },
-        methods:{
-            writeData(value,render){
-                console.info("value: "+value+" render: "+render)
-                this.content=render
+        methods: {
+            writeData (value, render) {
+                console.info ("value: " + value + " render: " + render)
+                this.content = render
             }
         },
         components: {
@@ -55,7 +53,12 @@
     }
 </script>
 
-<style>
-
+<style type="text/scss" lang="scss">
+    .markdown-edit-container {
+        background: yellow;
+        .v-note-wrapper .v-note-panel .v-note-show .v-show-content, .v-note-wrapper .v-note-panel .v-note-show .v-show-content-html {
+            background: white;
+        }
+    }
 
 </style>

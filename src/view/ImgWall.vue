@@ -1,35 +1,25 @@
 <template>
     <el-container>
-        <el-main  v-loading.fullscreen.lock="removeLoading" >
+        <el-main v-loading.fullscreen.lock="removeLoading">
             <div v-show="seen" style="width: 100%;height: 300px" element-loading-text="拼命加载中"
                  v-loading="loading"></div>
 
             <div v-show="error" style="width: 100%;height: 300px;text-align: center">
                 <el-button @click="retry">加载失败,点击重试</el-button>
             </div>
+            <div style="margin-left: auto;margin-right:auto;display: flex;flex-direction: row; justify-content: flex-start; flex-wrap: wrap">
+                <el-card v-for="(img,index) in imgWall" class="box-card" @click.native="jumpToDetail(img)">
 
-            <el-card v-for="(article,index) in javaArticles" class="box-card" @click.native="jumpToDetail(article)">
-                <div style="display: flex;flex-direction: row">
-                    <img style="margin-left:-5px;width: 160px;height:120px;"
-                         src="https://www.oracle.com/a/ocom/img/cw58-java-logo.jpg"/>
-                    <div style="margin-left:10px;display: flex;flex-grow:2;flex-direction: column">
-                        <h1 style="margin-top: 10px">{{article.title}}</h1>
-                        <div style="flex-grow: 2"></div>
-                        <div style="margin-bottom: 10px" >{{getDiggest(article.diggest)}}</div>
+                    <div style="display: flex;flex-direction: column">
+                        <img class="img-box"
+                             :src="img.imgUrl"/>
+                        <div class="text-box">
+                            <span class="img-text">{{img.imgLabel}}:{{img.imgDesc}}</span>
+                        </div>
                     </div>
-                    <el-button style="height: 40px;align-self: center;margin-right: 10px" v-on:click.stop="remove(article.objectId,index)">
-                        删除
-                    </el-button>
-                </div>
-            </el-card>
+                </el-card>
+            </div>
         </el-main>
-        <!--<router-link to="/edit">-->
-        <!--<div style="display: block;position: fixed;right: 10px;bottom: 10px">-->
-        <!--<el-button type="primary" icon="el-icon-edit" :round=true>-->
-        <!--添加-->
-        <!--</el-button>-->
-        <!--</div>-->
-        <!--</router-link>-->
     </el-container>
 </template>
 
@@ -38,23 +28,32 @@
     export default {
         data () {
             return {
-                javaArticles: [],
+                pageSize: 10,
+                pageNum: 0,
+                imgWall: [],
                 seen: true,
                 loading: true,
                 error: false,
-                removeLoading:false
+                removeLoading: false,
+                imgFactor: 0.3
             }
         },
-        computed:{
-
+        computed: {
+            imgWidth: function () {
+                return
+            },
+            imgHeight: function () {
+                return this.imgFactor * 1280
+            }
         },
         created: function () {
+            debugger
             this.getArticleList ()
         },
 
         methods: {
-            getDiggest(diggest){
-                if(diggest == null || diggest == ""){
+            getDiggest (diggest) {
+                if (diggest == null || diggest == "") {
                     return "this is default diggest"
                 }
                 return diggest
@@ -65,11 +64,11 @@
                 this.$router.push ({name: 'articleDetail', params: {id: id}})
             },
             remove (objectId, index) {
-                this.removeLoading=true;
+                this.removeLoading = true;
                 const query = Bmob.Query ('Article');
                 query.destroy (objectId).then (res => {
-                    this.javaArticles.splice (index, 1)
-                    console.log (JSON.stringify (this.javaArticles))
+                    this.imgWall.splice (index, 1)
+                    console.log (JSON.stringify (this.imgWall))
                     this.removeLoading = false;
                 }).catch (err => {
                     console.log (err)
@@ -83,14 +82,18 @@
 
             },
             getArticleList () {
-                const query = Bmob.Query ('Article');
-                query.equalTo ("type", "==", "java")
+                const query = Bmob.Query ('CardPicGroup');
+                query.order ("-updatedAt")
+                query.limit (this.pageSize)
+                query.skip (this.pageNum * this.pageSize)
+                debugger
                 query.find ().then (res => {
                     console.log (JSON.stringify (res))
-                    this.javaArticles = res
+                    this.imgWall = res
                     this.loading = false
                     this.seen = false
                     this.error = false
+                    this.pageSize = this.pageSize + 1;
                 }).catch (err => {
                     console.log (err)
                     this.error = true
@@ -103,17 +106,42 @@
 
 </script>
 
-<style>
+<style type="text/scss" lang="scss">
+    $imgFactor: 0.3;
+
     .box-card {
-        width: auto;
-        height: 120px;
+        width: $imgFactor * 720px;
+        height: auto;
         margin-top: 10px;
         margin-left: 10px;
         margin-right: 10px;
         padding: 0px;
     }
 
-    .el-card__body{
+    .img-box {
+        width: $imgFactor * 720px;
+        height: $imgFactor * 1280px;
+    }
+
+    .img-text{
+        overflow: hidden;
+        text-overflow:ellipsis;
+        white-space: nowrap;
+        color: white;
+        align-self: center;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .text-box{
+        display: flex;
+        justify-content:flex-start;
+        align-items:center;
+        background: grey;
+        height: 38px;
+    }
+
+    .el-card__body {
         padding: 0px;
     }
 </style>

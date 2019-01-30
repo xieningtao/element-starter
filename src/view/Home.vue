@@ -25,6 +25,7 @@
 
                     </el-container>
                 </el-tab-pane>
+
                 <el-tab-pane name="second">
                     <span slot="label"><i class="el-icon-picture" style="padding-right: 5px"/>Java</span>
 
@@ -48,8 +49,8 @@
                     </ul>
                 </el-tab-pane>
 
-                <el-tab-pane label="同城" name="fourth">
-
+                <el-tab-pane label="图片" name="fourth">
+                    <img-wall></img-wall>
                 </el-tab-pane>
             </el-tabs>
         </el-main>
@@ -69,10 +70,10 @@
     import {mapState, mapActions} from 'vuex'
     import HomeBanner from "./HomeBanner"
     import ArticleList from "./ArticleList.vue"
+    import ImgWall from "./ImgWall.vue"
     import ElContainer from "../../node_modules/element-ui/packages/container/src/main.vue";
     import ElFooter from "../../node_modules/element-ui/packages/footer/src/main.vue";
     import ElMain from "../../node_modules/element-ui/packages/main/src/main.vue";
-
     export default {
 
         data() {
@@ -132,7 +133,8 @@
             ElFooter,
             ElContainer,
             HomeBanner,
-            ArticleList
+            ArticleList,
+            ImgWall
         },
 
         methods: {
