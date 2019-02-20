@@ -1,5 +1,5 @@
 <template>
-    <el-container>
+    <el-container >
         <el-main v-loading.fullscreen.lock="removeLoading">
             <div v-show="seen" style="width: 100%;height: 300px" element-loading-text="拼命加载中"
                  v-loading="loading"></div>
@@ -7,7 +7,7 @@
             <div v-show="error" style="width: 100%;height: 300px;text-align: center">
                 <el-button @click="retry">加载失败,点击重试</el-button>
             </div>
-            <div style="margin-left: auto;margin-right:auto;display: flex;flex-direction: row; justify-content: flex-start; flex-wrap: wrap">
+            <div class="box-card-container">
                 <el-card v-for="(img,index) in imgWall" class="box-card" @click.native="jumpToDetail(img)">
 
                     <div style="display: flex;flex-direction: column">
@@ -48,7 +48,7 @@
         },
         created: function () {
             debugger
-            this.getArticleList ()
+            this.getPicList ()
         },
 
         methods: {
@@ -81,7 +81,7 @@
             retry () {
 
             },
-            getArticleList () {
+            getPicList () {
                 const query = Bmob.Query ('CardPicGroup');
                 query.order ("-updatedAt")
                 query.limit (this.pageSize)
@@ -105,39 +105,52 @@
     }
 
 </script>
-
+<!--1428-->
 <style type="text/scss" lang="scss">
     $imgFactor: 0.3;
+    $imgMargin: 10px;
+    $wallWidth: (0.3*720*6 + 10 * 2* 6 + 6*2) px;
+
+    .box-card-container {
+        width: $imgFactor * 720px * 6 + $imgMargin * 2 * 6 + 6px * 2;
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        margin-left: auto;
+        margin-right: auto;
+    }
 
     .box-card {
         width: $imgFactor * 720px;
         height: auto;
-        margin-top: 10px;
-        margin-left: 10px;
-        margin-right: 10px;
+        margin-top: $imgMargin;
+        margin-left: $imgMargin;
+        margin-right: $imgMargin;
         padding: 0px;
     }
 
     .img-box {
         width: $imgFactor * 720px;
-        height: $imgFactor * 1280px;
+        height: $imgFactor * 1080px;
     }
 
-    .img-text{
+    .img-text {
         overflow: hidden;
-        text-overflow:ellipsis;
+        text-overflow: ellipsis;
         white-space: nowrap;
-        color: white;
+        color: gray;
         align-self: center;
         margin-left: 10px;
         margin-right: 10px;
     }
 
-    .text-box{
+    .text-box {
         display: flex;
-        justify-content:flex-start;
-        align-items:center;
-        background: grey;
+        justify-content: flex-start;
+        align-items: center;
+        background: white;
         height: 38px;
     }
 

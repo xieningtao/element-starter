@@ -49,7 +49,7 @@
 
         },
         created: function () {
-            this.getArticleList ()
+            this.getPicList ()
         },
 
         methods: {
@@ -82,7 +82,7 @@
             retry () {
 
             },
-            getArticleList () {
+            getPicList () {
                 const query = Bmob.Query ('Article');
                 query.equalTo ("type", "==", "java")
                 query.find ().then (res => {

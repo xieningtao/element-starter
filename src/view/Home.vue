@@ -1,7 +1,6 @@
 <template>
-    <el-container>
+    <el-container style="background-color: #F4F4F4;height: 100%">
         <el-main>
-
             <el-tabs v-model="activeName" class="theme1" @tab-click="handleClick">
                 <el-tab-pane name="one">
                     <span slot="label"><i class="el-icon-date" style="padding-right: 5px"></i> 所有项目</span>
@@ -171,19 +170,28 @@
 <style type="text/scss" lang="scss">
     .theme1 {
         .el-tabs__header {
-            background: white;
+            background: #FFE300;
             color: white;
             font-size: 18px;
-            margin-right: 30px;
+            /*margin-right: 30px;*/
         }
         .el-tabs__item {
             color: black;
         }
+        .el-tabs__item:hover {
+            background: black;
+            color: white;
+        }
         .el-tabs__nav {
-            float: right;
+            float: none;
             /*padding-right: 20px;*/
             /*padding-left: 20px;*/
             /*background: black;*/
+            /*display: none;*/
+            text-align: center;
+        }
+        .el-tabs__active-bar{
+            display: none;
         }
 
         .el-tabs__nav-wrap::after {
@@ -196,14 +204,14 @@
         font-size: 14px;
     }
 
-    .item {
-        padding: 18px 0;
-    }
-
     .box-card {
         width: auto;
         margin-top: 10px;
     }
-
-
+    .el-tabs--top .el-tabs__item.is-top:last-child{
+        padding-right: 20px;
+    }
+    .el-tabs--top .el-tabs__item.is-top:nth-child(2){
+        padding-left: 20px;
+    }
 </style>
