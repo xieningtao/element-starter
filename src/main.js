@@ -7,6 +7,24 @@ import router from './router'
 import VueRouter from 'vue-router'
 import Bmob from "hydrogen-js-sdk";
 import store from "./store"
+import VuePreview from 'vue-preview'
+
+// defalut install
+Vue.use(VuePreview,{
+    shareEl:false
+})
+
+// // with parameters install
+// Vue.use(preview, {
+//     mainClass: 'pswp--minimal--dark',
+//     barsSize: {top: 0, bottom: 0},
+//     captionEl: false,
+//     fullscreenEl: false,
+//     shareEl: false,
+//     bgOpacity: 0.85,
+//     tapToClose: true,
+//     tapToToggleControls: false
+// })
 
 Vue.use (ElementUI)
 Vue.use (VueResource)

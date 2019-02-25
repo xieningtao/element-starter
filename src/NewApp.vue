@@ -2,7 +2,7 @@
 
     <div id="body">
 
-        <div id="header">
+        <div id="header" v-show="false">
             <div id="logo">
                 <img src="./assets/logo.png" v-on:click="open()"/>
             </div>
@@ -12,39 +12,63 @@
         </div>
 
         <div id="content">
-            <div id="left" ref="left">
+            <div id="left" ref="left" v-show="true">
                 <ul>
-                    <li v-on:click="close()">菜单一</li>
-                    <li>菜单二</li>
-                    <li>菜单三</li>
-                    <li>菜单四</li>
-                    <li>菜单五</li>
-                    <li>菜单六</li>
+                    <li v-for="(item,index) in items" v-bind:class="{active:item.active,unactive:!item.active}"
+                        v-on:click="toPage(index,item)">
+                        {{item.content}}
+                    </li>
                 </ul>
             </div>
             <div id="real_content">
-                <!--<router-view></router-view>-->
+                <router-view></router-view>
             </div>
-            <div id="right"></div>
+            <div id="right" v-show="true">
+                这里是推荐页
+            </div>
 
         </div>
     </div>
 </template>
 <script>
     export default {
-
-        methods:{
-            open(){
-//                this.$refs.left.style.width = "7rem";
-//                this.$refs.left.style.visibility="visible"
-                this.$refs.left.style.transform="translateX(0rem)"
+        data () {
+            return {
+                items: [
+                    {content: "菜单一", active: true},
+                    {content: "菜单二", active: false},
+                    {content: "菜单三", active: false},
+                    {content: "菜单四", active: false},
+                ]
+            }
+        },
+        mounted () {
+            debugger
+//            toPage("才当意")
+//            this.$router.replace ({name: 'mainPage', params: {tag: '菜单一'}})
+            this.$router.replace({name:'shoesList'})
+        },
+        methods: {
+            open () {
+//                this.$refs.left.style.transform="translateX(0rem)"
             },
 
-            close(){
-//                this.$refs.left.style.width="0rem"
-                this.$refs.left.style.transform="translateX(-7rem)"
-//                this.$refs.left.style.visibility="hidden"
-            }
+            close () {
+//                this.$refs.left.style.transform="translateX(-7rem)"
+            },
+            toPage (index, item) {
+                debugger
+                if(index == 1){
+                    this.$router.replace({name:'shoesList'})
+                }else {
+                    this.$router.replace ({name: 'mainPage', params: {tag: item.content}})
+                }
+                this.items.forEach (function (myItem) {
+                    myItem.active = false;
+                });
+                item.active = true;
+            },
+
         }
     }
 </script>
@@ -55,7 +79,7 @@
         flex-direction: column;
         width: 100%;
         height: 100%;
-
+        background-color: white;
     }
 
     #header {
@@ -90,33 +114,37 @@
     }
 
     #content {
-        background-color: yellow;
         width: 100%;
         height: 100%;
         display: flex;
         flex-direction: row;
+        justify-content: center;
     }
 
     #content > #left {
-        width: 7rem;
+        width: 12rem;
         height: 100%;
-        background-color: red;
         display: flex;
+        background-color: #333333;
+        color: white;
         flex-direction: column;
         justify-content: center;
         position: fixed;
-        margin-top: 5rem;
+        left: 0px;
+        box-shadow:2px 2px 3px #aaaaaa;
+        /*margin-top: 5rem;*/
         transition: all 0.5s;
     }
 
-    #content > #real_content{
-        overflow: scroll;
-        background: gray;
-        width: 100%;
-        height: 3000px;
+    #content > #real_content {
+        background: lightsteelblue;
+        width: 35rem;
+        height: 100%;
+        /*margin-top: 5rem;*/
+        margin-left: 8rem;
     }
 
-    #left > ul{
+    #left > ul {
         text-align: center;
         list-style-type: none;
         text-align: center;
@@ -124,19 +152,31 @@
 
     }
 
-    ul > li{
+    #left > ul > li {
         padding: 1rem 0rem;
-
+        /*border-bottom: solid 1px gray;*/
+        /*box-shadow:inset 0px 15px 15px -15px #000001;*/
+        /*inset 0px -15px 15px -15px #000;*/
     }
 
-    li:hover{
-        background-color: yellow;
+    #left > ul > li:hover {
+        background-color: #010101;
     }
 
-    #content > #right{
-        width: 7rem;
+    .active {
+        background-color: #010101;
+    }
+
+    .unactive {
+        background-color: transparent;
+    }
+
+    #content > #right {
+        width: 10rem;
         height: 100%;
         background-color: pink;
+        top:5rem ;
+        margin-left: 0.5rem;
     }
 </style>
 
