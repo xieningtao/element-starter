@@ -15,6 +15,11 @@ const routes = [
         component: Edite
     },
     {
+        path:"/home",
+        component: Home,
+        name:"home"
+    },
+    {
         path: "/",
         component: FunHome,
         children: [
