@@ -1,9 +1,12 @@
 <template>
     <div style="width: 100%;height: 100%">
         <ul style="list-style: none;background-color:lightsteelblue;padding-bottom: 20px;margin-top: 20px">
-            <li v-for="(story,index) in stories" class="article-item" @click="toPage(story,index)">
+            <li v-for="(story,index) in stories" class="article-item">
                 <span class="article-title"><strong>{{story.title}}</strong></span>
-                <div class="article-content" v-html="story.content"></div>
+                <div class="article-content" ref="article-content">
+                    <div class="article-content_inner" v-html="story.content" @click="toPage(story,index)"></div>
+                    <div style="position: absolute;right: 10px;bottom: 10px" @click="toggle(index)" v-if="story.showToggle">toggle</div>
+                </div>
             </li>
         </ul>
     </div>
@@ -29,7 +32,8 @@
                     "校长炸飞了\n" +
                     "呵呵呵\n" +
                     "太好了\n" +
-                    "终于不用再去上学校"
+                    "终于不用再去上学校",
+                    showToggle:false
                 }, {
                     title: "测试",
                     content: "花儿对我笑<p></p>\n" +
@@ -44,7 +48,8 @@
                     "校长炸飞了<p></p>\n" +
                     "呵呵呵<p></p>\n" +
                     "太好了<p></p>\n" +
-                    "终于不用再去上学校"
+                    "终于不用再去上学校",
+                    showToggle:false
                 }, {
                     title: "测试",
                     content: "花儿对我笑<p></p>\n" +
@@ -59,15 +64,36 @@
                     "校长炸飞了<p></p>\n" +
                     "呵呵呵<p></p>\n" +
                     "太好了<p></p>\n" +
-                    "终于不用再去上学校"
+                    "终于不用再去上学校",
+                    showToggle:false
                 }]
             }
         },
-        methods:{
-            toPage(story,index){
+        mounted(){
+            debugger;
+            for(let index = 0;index<this.stories.length;index++){
+                var curHeight = this.$refs["article-content"][index].offsetHeight;
+                if(curHeight > 100){
+                    this.stories[index].showToggle = true;
+                }else {
+                    this.stories[index].showToggle = false;
+                }
+            }
+        },
+        methods: {
+            toPage (story, index) {
 //                this.$router.push({name:'funnyStoryDetail',params:{id:'123'}})
                 var link = "http://www.chanpin100.com/article/107984";
-                window.open(link, '_blank');//新窗口打开
+                window.open (link, '_blank');//新窗口打开
+            },
+            toggle (index) {
+                debugger
+                var curHeight = this.$refs["article-content"][index].offsetHeight;
+                if(curHeight > 100){
+                    this.$refs["article-content"][index].style.height = "100px"
+                }else {
+                    this.$refs["article-content"][index].style.height = "auto"
+                }
             }
         }
 
@@ -98,6 +124,16 @@
     .article-content {
         font-size: 16px;
         color: gray;
+        position: relative;
+        width: 100%;
+        height: auto;
+    }
+
+    .article-content_inner{
+        margin-right: 20px;
+        margin-bottom: 20px;
+        width: 100%;
+        height: 100%;
     }
 
 </style>
