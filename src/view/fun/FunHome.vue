@@ -44,8 +44,8 @@
         mounted () {
             debugger
 //            toPage("才当意")
-//            this.$router.replace ({name: 'mainPage', params: {tag: '菜单一'}})
-            this.$router.replace ({name: 'shoesList'})
+            this.$router.replace ({name: 'mainPage', params: {tag: '菜单一'}})
+//            this.$router.replace ({name: 'shoesList'})
         },
         methods: {
             open () {
