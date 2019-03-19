@@ -19,19 +19,26 @@
                 clickPic: false,
                 show:false,
                 photos: [{
-                    url: "https://wx1.sinaimg.cn/mw690/006MWlXYly1g0jnitgee4j31f724pb2b.jpg"
+                    url: "https://wx1.sinaimg.cn/mw690/006MWlXYly1g0jnitgee4j31f724pb2b.jpg",
+                    content:"this is a test"
                 }, {
-                    url: "https://wx1.sinaimg.cn/mw690/006MWlXYly1g0eyy0ufmyj31741uo7wi.jpg"
+                    url: "https://wx1.sinaimg.cn/mw690/006MWlXYly1g0eyy0ufmyj31741uo7wi.jpg",
+                    content:"this is a test A"
                 }, {
-                    url: "https://wx3.sinaimg.cn/mw690/006MWlXYly1g0amiowxwuj31jk2bchdu.jpg"
+                    url: "https://wx3.sinaimg.cn/mw690/006MWlXYly1g0amiowxwuj31jk2bchdu.jpg",
+                    content:"this is a test B"
                 }, {
-                    url: "https://wx3.sinaimg.cn/mw690/006MWlXYly1g0j027o2acj318g1oohdt.jpg"
+                    url: "https://wx3.sinaimg.cn/mw690/006MWlXYly1g0j027o2acj318g1oohdt.jpg",
+                    content:"this is a test C"
                 }, {
-                    url: "https://wx2.sinaimg.cn/mw690/006MWlXYly1g0j026tw8xj318g1ow7wh.jpg"
+                    url: "https://wx2.sinaimg.cn/mw690/006MWlXYly1g0j026tw8xj318g1ow7wh.jpg",
+                    content:"this is a test D"
                 }, {
-                    url: "https://wx1.sinaimg.cn/mw690/006MWlXYly1g08faf50gmj30u0190kjo.jpg"
+                    url: "https://wx1.sinaimg.cn/mw690/006MWlXYly1g08faf50gmj30u0190kjo.jpg",
+                    content:"this is a test F"
                 }, {
-                    url: "https://wx4.sinaimg.cn/mw690/006MWlXYly1g0is49k64bj31av2517wk.jpg"
+                    url: "https://wx4.sinaimg.cn/mw690/006MWlXYly1g0is49k64bj31av2517wk.jpg",
+                    content:"this is a test E"
                 }
                 ],
                 slide1: [
