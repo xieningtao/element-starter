@@ -1,12 +1,29 @@
 <template>
   <div class="photoContainer" ref="photoContainer">
     <ul class="photoBarOne" ref="photoBarOne">
-      <li v-for="(item,index) in photos" @mouseleave="mouseLeave(index)" @mouseover="mouseOver(index)">
-        <img class="singlePhoto" :src="item.url" >
-        <div :class="currentIndex==index? 'imgBottomShow' : 'imgBottom' " ref="imgBottom">{{item.content}}</div>
+      <li
+        v-for="(item,index) in photos"
+        @mouseleave="mouseLeave(index)"
+        @mouseover="mouseOver(index)"
+      >
+        <img class="singlePhoto" :src="item.url">
+        <transition name="fade">
+          <div v-show="currentIndex == index" class="imgBottomShow" ref="imgBottom">{{item.content}}</div>
+        </transition>
       </li>
     </ul>
-    <ul class="photoBarTwo" ref="photoBarTwo"></ul>
+    <ul class="photoBarTwo" ref="photoBarTwo">
+      <li
+        v-for="(item,index) in photos"
+        @mouseleave="mouseLeave(index)"
+        @mouseover="mouseOver(index)"
+      >
+        <img class="singlePhoto" :src="item.url">
+        <transition name="fade">
+          <div v-show="currentIndex == index" class="imgBottomShow" ref="imgBottom">{{item.content}}</div>
+        </transition>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -16,11 +33,11 @@ export default {
   data() {
     return {
       active: false,
-      currentIndex:-1
+      currentIndex: -1
     };
   },
   mounted() {
-    this.$refs.photoBarTwo.innerHTML = this.$refs.photoBarOne.innerHTML;
+    // this.$refs.photoBarTwo.innerHTML = this.$refs.photoBarOne.innerHTML;
     this.scrollLeft = () => {
       if (
         this.$refs.photoBarTwo.offsetWidth -
@@ -32,19 +49,23 @@ export default {
         this.$refs.photoContainer.scrollLeft++;
       }
     };
-    this.scorllInterval = setInterval(this.scrollLeft, 20);
+    this.scorllInterval = setInterval(this.scrollLeft, 10);
   },
-  computed: {
-   
-  },
+  computed: {},
   methods: {
     mouseLeave: function(index) {
-        this.scorllInterval = setInterval(this.scrollLeft, 20);
+      this.scorllInterval = setInterval(this.scrollLeft, 10);
       this.currentIndex = -1;
+     window.event.currentTarget.getElementsByTagName(
+        "img"
+      )[0].style.backgroundColor="transparent";
     },
     mouseOver: function(index) {
-        clearInterval(this.scorllInterval);
+      clearInterval(this.scorllInterval);
       this.currentIndex = index;
+       window.event.currentTarget.getElementsByTagName(
+        "img"
+      )[0].style.backgroundColor="red";
     },
     scrollHorizontal: function() {}
   }
@@ -57,12 +78,21 @@ export default {
   white-space: nowrap;
 }
 
+.photoBarOne > li > img {
+  transition: 0.2s;
+  /* transform-origin: 100% 100% */
+}
+.photoBarTwo > li > img {
+  transition: 0.2s;
+  /* transform-origin: 100% 100% */
+}
+
 .photoBarOne {
   list-style: none;
   display: inline;
   padding-left: 0px;
 }
-li {
+.photoBarOne > li {
   list-style: none;
   display: inline;
   position: relative;
@@ -74,22 +104,19 @@ li {
   padding-left: 0px;
 }
 
-.singlePhoto {
-  padding-left: 2px;
-  width: 150px;
-  height: 250px;
-  
+.photoBarTwo > li {
+  list-style: none;
+  display: inline;
+  position: relative;
 }
 
-.imgBottom {
-  position: absolute;
-  bottom: 0px;
-  left: 0px;
-  width: 100%;
-  height: 0px;
-  background-color: #c0c0c0;
-  opacity: 0.5;
-  transition: height 0.5s;
+.singlePhoto {
+  padding-left: 2px;
+  padding-right: 2px;
+  width: 150px;
+  height: 250px;
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 
 .imgBottomShow {
@@ -99,6 +126,22 @@ li {
   width: 100%;
   height: 40px;
   background-color: #c0c0c0;
-  opacity: 0.5;
+  opacity: 1;
+  margin-bottom: 4px;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  transform: translateY(20px);
+  opacity: 0;
+}
+.fade-enter-to,
+.fade-leave {
+  transform: translateY(0px);
+  opacity: 1;
 }
 </style>
