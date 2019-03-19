@@ -1,103 +1,124 @@
 <template>
-    <div style="width: 100%;height: 100%">
-        <ul style="list-style: none;background-color:lightsteelblue;padding-bottom: 20px;margin-top: 20px">
-            <li v-for="(story,index) in stories" class="article-item" @click="toPage(story,index)">
-                <span class="article-title"><strong>{{story.title}}</strong></span>
-                <div class="article-content" v-html="story.content"></div>
-            </li>
-        </ul>
-    </div>
+  <div class="article-container">
+    <ul>
+      <li
+        v-for="(story,index) in stories"
+        v-bind:key="index"
+        class="article-item"
+        @click="toPage(story,index)"
+      >
+        <span class="article-title">
+          <strong>{{story.title}}</strong>
+        </span>
+        <div class="article-content" v-html="story.content"></div>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
-
-    export default {
-        data () {
-            return {
-                stories: [{
-                    title: "歌词改编",
-                    content: "太阳当空照\n" +
-                    "花儿对我笑\n" +
-                    "小鸟说，早早早\n" +
-                    "你为什么背上炸药包\n" +
-                    "我去炸学校\n" +
-                    "老师不知道\n" +
-                    "一拉线\n" +
-                    "我就跑\n" +
-                    "学校老师都要炸没了\n" +
-                    "老师炸没了\n" +
-                    "校长炸飞了\n" +
-                    "呵呵呵\n" +
-                    "太好了\n" +
-                    "终于不用再去上学校"
-                }, {
-                    title: "测试",
-                    content: "花儿对我笑<p></p>\n" +
-                    "小鸟说，早早早<p></p>\n" +
-                    "你为什么背上炸药包<p></p>\n" +
-                    "我去炸学校<p></p>\n" +
-                    "老师不知道<p></p>\n" +
-                    "一拉线<p></p>\n" +
-                    "我就跑<p></p>\n" +
-                    "学校老师都要炸没了<p></p>\n" +
-                    "老师炸没了<p></p>\n" +
-                    "校长炸飞了<p></p>\n" +
-                    "呵呵呵<p></p>\n" +
-                    "太好了<p></p>\n" +
-                    "终于不用再去上学校"
-                }, {
-                    title: "测试",
-                    content: "花儿对我笑<p></p>\n" +
-                    "小鸟说，早早早<p></p>\n" +
-                    "你为什么背上炸药包<p></p>\n" +
-                    "我去炸学校<p></p>\n" +
-                    "老师不知道<p></p>\n" +
-                    "一拉线<p></p>\n" +
-                    "我就跑<p></p>\n" +
-                    "学校老师都要炸没了<p></p>\n" +
-                    "老师炸没了<p></p>\n" +
-                    "校长炸飞了<p></p>\n" +
-                    "呵呵呵<p></p>\n" +
-                    "太好了<p></p>\n" +
-                    "终于不用再去上学校"
-                }]
-            }
+export default {
+  data() {
+    return {
+      stories: [
+        {
+          title: "歌词改编",
+          content:
+            "太阳当空照\n" +
+            "花儿对我笑\n" +
+            "小鸟说，早早早\n" +
+            "你为什么背上炸药包\n" +
+            "我去炸学校\n" +
+            "老师不知道\n" +
+            "一拉线\n" +
+            "我就跑\n" +
+            "学校老师都要炸没了\n" +
+            "老师炸没了\n" +
+            "校长炸飞了\n" +
+            "呵呵呵\n" +
+            "太好了\n" +
+            "终于不用再去上学校"
         },
-        methods:{
-            toPage(story,index){
-//                this.$router.push({name:'funnyStoryDetail',params:{id:'123'}})
-                var link = "http://www.chanpin100.com/article/107984";
-                window.open(link, '_blank');//新窗口打开
-            }
+        {
+          title: "测试",
+          content:
+            "花儿对我笑<p></p>\n" +
+            "小鸟说，早早早<p></p>\n" +
+            "你为什么背上炸药包<p></p>\n" +
+            "我去炸学校<p></p>\n" +
+            "老师不知道<p></p>\n" +
+            "一拉线<p></p>\n" +
+            "我就跑<p></p>\n" +
+            "学校老师都要炸没了<p></p>\n" +
+            "老师炸没了<p></p>\n" +
+            "校长炸飞了<p></p>\n" +
+            "呵呵呵<p></p>\n" +
+            "太好了<p></p>\n" +
+            "终于不用再去上学校"
+        },
+        {
+          title: "测试",
+          content:
+            "花儿对我笑<p></p>\n" +
+            "小鸟说，早早早<p></p>\n" +
+            "你为什么背上炸药包<p></p>\n" +
+            "我去炸学校<p></p>\n" +
+            "老师不知道<p></p>\n" +
+            "一拉线<p></p>\n" +
+            "我就跑<p></p>\n" +
+            "学校老师都要炸没了<p></p>\n" +
+            "老师炸没了<p></p>\n" +
+            "校长炸飞了<p></p>\n" +
+            "呵呵呵<p></p>\n" +
+            "太好了<p></p>\n" +
+            "终于不用再去上学校"
         }
-
+      ]
+    };
+  },
+  methods: {
+    toPage(story, index) {
+      //                this.$router.push({name:'funnyStoryDetail',params:{id:'123'}})
+      var link = "http://www.chanpin100.com/article/107984";
+      window.open(link, "_blank"); //新窗口打开
     }
-
+  }
+};
 </script>
 
 <style>
-    .article-item {
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-        transition: 0.3s;
-        width: 90%;
-        margin-top: 20px;
-        background-color: white;
-        padding: 10px;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-    }
+.article-container{
+    width: 100%;
+    height: 100%;
+}
 
-    .article-title {
-        font-size: 20px;
-        color: #010101;
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
+.article-container > ul{
+    list-style: none;
+    background-color:lightsteelblue;
+    padding-bottom: 20px;
+    margin-top: 20px
+}
+.article-item {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  transition: 0.3s;
+  width: 90%;
+  margin-top: 20px;
+  background-color: white;
+  padding: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
 
-    .article-content {
-        font-size: 16px;
-        color: gray;
-    }
+.article-title {
+  font-size: 20px;
+  color: #010101;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
 
+.article-content {
+  font-size: 16px;
+  color: gray;
+}
 </style>

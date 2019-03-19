@@ -15,7 +15,7 @@
                                 <el-button @click="retry">加载失败,点击重试</el-button>
                             </div>
 
-                            <el-card v-for="card in projectData" class="box-card">
+                            <el-card v-for="(card,index) in projectData" v-bind:key="index" class="box-card">
                                 <p>检测仓库：{{card.repo}}</p>
                                 <p>当前检测分支：{{card.branch}}</p>
                                 <p>当前合理单号：{{card.no}}</p>

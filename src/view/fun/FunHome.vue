@@ -14,7 +14,7 @@
         <div id="content">
             <div id="left" ref="left" v-show="true">
                 <ul>
-                    <li v-for="(item,index) in items" v-bind:class="{active:item.active,unactive:!item.active}"
+                    <li v-for="(item,index) in items" v-bind:key="index" v-bind:class="{active:item.active,unactive:!item.active}"
                         v-on:click="toPage(index,item)">
                         {{item.content}}
                     </li>
@@ -35,9 +35,8 @@
         data () {
             return {
                 items: [
-                    {content: "菜单一", active: true},
-                    {content: "菜单二", active: false},
-                    {content: "菜单三", active: false},
+                    {content: "女神", active: true},
+                    {content: "高跟鞋", active: false},
                     {content: "搞笑段子", active: false},
                 ]
             }
@@ -60,7 +59,7 @@
                 debugger
                 if (index == 1) {
                     this.$router.replace ({name: 'shoesList'})
-                } else if (index == 3) {
+                } else if (index == 2) {
                     this.$router.replace ({name: 'funnyStory'})
                 } else {
                     this.$router.replace ({name: 'mainPage', params: {tag: item.content}})
