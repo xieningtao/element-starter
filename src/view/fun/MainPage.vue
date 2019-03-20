@@ -6,12 +6,15 @@
              <!--v-on:click="enargePic()" v-bind:class="{min:!clickPic,max:clickPic}"-->
         <!--/>-->
         <photo-bar :photos="photos"></photo-bar>
-        <vue-preview :slides="slide1" @close="handleClose"></vue-preview>
+        <!-- <vue-preview :slides="slide1" @close="handleClose"></vue-preview> -->
+        <photo-wall></photo-wall>
+
     </div>
 </template>
 
 <script>
     import PhotoBar from "./PhotoBar.vue"
+    import PhotoWall from "./PhotoWall.vue"
     export default {
         data () {
             return {
@@ -78,7 +81,8 @@
             }
         },
         components:{
-            PhotoBar
+            PhotoBar,
+            PhotoWall
         }
     }
 </script>

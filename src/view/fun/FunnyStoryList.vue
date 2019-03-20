@@ -10,6 +10,7 @@
         <div class="article-content" ref="article-content">
           <div class="article-content_inner" v-html="story.content" @click="toPage(story,index)"></div>
           <div
+          class="stroy.showToggle"
             style="position: absolute;right: 10px;bottom: 10px"
             @click="toggle(index)"
             v-if="story.showToggle"
@@ -96,6 +97,7 @@ export default {
   },
   methods: {
     toPage(story, index) {
+      debugger
       //                this.$router.push({name:'funnyStoryDetail',params:{id:'123'}})
       var link = "http://www.chanpin100.com/article/107984";
       window.open(link, "_blank"); //新窗口打开
@@ -108,13 +110,6 @@ export default {
       } else {
         this.$refs["article-content"][index].style.height = "auto";
       }
-    }
-  },
-  methods: {
-    toPage(story, index) {
-      //                this.$router.push({name:'funnyStoryDetail',params:{id:'123'}})
-      var link = "http://www.chanpin100.com/article/107984";
-      window.open(link, "_blank"); //新窗口打开
     }
   }
 };

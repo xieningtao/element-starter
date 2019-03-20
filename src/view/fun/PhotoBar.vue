@@ -39,11 +39,7 @@ export default {
   mounted() {
     // this.$refs.photoBarTwo.innerHTML = this.$refs.photoBarOne.innerHTML;
     this.scrollLeft = () => {
-      if (
-        this.$refs.photoBarTwo.offsetWidth -
-          this.$refs.photoContainer.scrollLeft <=
-        0
-      ) {
+      if (this.$refs.photoBarTwo.offsetWidth - this.$refs.photoContainer.scrollLeft <= 0) {
         this.$refs.photoContainer.scrollLeft -= this.$refs.photoBarTwo.offsetWidth;
       } else {
         this.$refs.photoContainer.scrollLeft++;
@@ -52,20 +48,23 @@ export default {
     this.scorllInterval = setInterval(this.scrollLeft, 10);
   },
   computed: {},
+  beforeDestroy(){
+    clearInterval(this.scorllInterval)
+  },
   methods: {
     mouseLeave: function(index) {
       this.scorllInterval = setInterval(this.scrollLeft, 10);
       this.currentIndex = -1;
-     window.event.currentTarget.getElementsByTagName(
+      window.event.currentTarget.getElementsByTagName(
         "img"
-      )[0].style.backgroundColor="transparent";
+      )[0].style.backgroundColor = "transparent";
     },
     mouseOver: function(index) {
       clearInterval(this.scorllInterval);
       this.currentIndex = index;
-       window.event.currentTarget.getElementsByTagName(
+      window.event.currentTarget.getElementsByTagName(
         "img"
-      )[0].style.backgroundColor="red";
+      )[0].style.backgroundColor = "red";
     },
     scrollHorizontal: function() {}
   }

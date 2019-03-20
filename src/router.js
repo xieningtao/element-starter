@@ -1,6 +1,6 @@
 import Edite from './view/Edit.vue'
 import Home from "./view/Home.vue"
-import FunHome from "./view/fun/FunHome.vue"
+import FunHome from "./view/fun/NewFunHome.vue"
 import AddArticle from "./view/AddArticle.vue"
 import ArticleDetail from "./view/ArticleDetail.vue"
 import MainPage from "./view/fun/MainPage.vue"

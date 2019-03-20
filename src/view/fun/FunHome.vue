@@ -11,6 +11,7 @@
             <div id="right_logo"></div>
         </div>
 
+
         <div id="content">
             <div id="left" ref="left" v-show="true">
                 <ul>
