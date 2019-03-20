@@ -7,11 +7,10 @@
         <span class="article-title">
           <strong>{{story.title}}</strong>
         </span>
-        <div class="article-content" ref="article-content">
+        <div  :class='story.shouldToggle?"article-content-collapse":"article-content-expand"' ref="article-content">
           <div class="article-content_inner" v-html="story.content" @click="toPage(story,index)"></div>
           <div
-          class="stroy.showToggle"
-            style="position: absolute;right: 10px;bottom: 10px"
+           class="toggle"
             @click="toggle(index)"
             v-if="story.showToggle"
           >toggle</div>
@@ -43,7 +42,8 @@ export default {
             "呵呵呵\n" +
             "太好了\n" +
             "终于不用再去上学校",
-          showToggle: false
+          showToggle: false,
+          shouldToggle:false
         },
         {
           title: "测试",
@@ -61,7 +61,8 @@ export default {
             "呵呵呵<p></p>\n" +
             "太好了<p></p>\n" +
             "终于不用再去上学校",
-          showToggle: false
+          showToggle: false,
+          shouldToggle:false
         },
         {
           title: "测试",
@@ -79,7 +80,8 @@ export default {
             "呵呵呵<p></p>\n" +
             "太好了<p></p>\n" +
             "终于不用再去上学校",
-          showToggle: false
+          showToggle: false,
+          shouldToggle:false
         }
       ]
     };
@@ -90,14 +92,16 @@ export default {
       var curHeight = this.$refs["article-content"][index].offsetHeight;
       if (curHeight > 100) {
         this.stories[index].showToggle = true;
+        this.stories[index].shouldToggle = true;
       } else {
         this.stories[index].showToggle = false;
+        this.stories[index].shouldToggle = false;
       }
     }
   },
   methods: {
     toPage(story, index) {
-      debugger
+      debugger;
       //                this.$router.push({name:'funnyStoryDetail',params:{id:'123'}})
       var link = "http://www.chanpin100.com/article/107984";
       window.open(link, "_blank"); //新窗口打开
@@ -106,9 +110,10 @@ export default {
       debugger;
       var curHeight = this.$refs["article-content"][index].offsetHeight;
       if (curHeight > 100) {
-        this.$refs["article-content"][index].style.height = "100px";
+        // this.$refs["article-content"][index].style.height = "100px";
+         this.stories[index].shouldToggle = true
       } else {
-        this.$refs["article-content"][index].style.height = "auto";
+         this.stories[index].shouldToggle = false
       }
     }
   }
@@ -145,7 +150,15 @@ export default {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-.article-content {
+.article-content-collapse {
+  font-size: 16px;
+  color: gray;
+  position: relative;
+  width: 100%;
+  height: 100px;
+}
+
+.article-content-expand {
   font-size: 16px;
   color: gray;
   position: relative;
@@ -163,5 +176,11 @@ export default {
 .article-content {
   font-size: 16px;
   color: gray;
+}
+
+.toggle{
+  position: absolute;
+  right: 10px;
+  bottom: 10px
 }
 </style>

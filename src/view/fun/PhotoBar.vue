@@ -64,7 +64,7 @@ export default {
       this.currentIndex = index;
       window.event.currentTarget.getElementsByTagName(
         "img"
-      )[0].style.backgroundColor = "red";
+      )[0].style.backgroundColor = "yellow";
     },
     scrollHorizontal: function() {}
   }
@@ -110,23 +110,26 @@ export default {
 }
 
 .singlePhoto {
-  padding-left: 2px;
-  padding-right: 2px;
+  padding-left: 4px;
+  padding-right: 4px;
   width: 150px;
   height: 250px;
   padding-top: 4px;
-  padding-bottom: 4px;
+  padding-bottom: 35px;
 }
 
 .imgBottomShow {
   position: absolute;
-  bottom: 0px;
-  left: 0px;
-  width: 100%;
-  height: 40px;
-  background-color: #c0c0c0;
+  width: 150px;
+  height: auto;
+  /* background-color: #c0c0c0; */
   opacity: 1;
-  margin-bottom: 4px;
+  left: 4px;
+  right: 4px;
+  bottom: 10px;
+  text-align: center
+  /* margin-left: 4px; */
+  /* margin-right: 4px; */
 }
 
 .fade-enter-active,

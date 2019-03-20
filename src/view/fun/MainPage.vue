@@ -1,7 +1,5 @@
 <template>
     <div>
-        {{msg}}
-
         <!--<img src="https://farm6.staticflickr.com/5591/15008867125_68a8ed88cc_m.jpg"-->
              <!--v-on:click="enargePic()" v-bind:class="{min:!clickPic,max:clickPic}"-->
         <!--/>-->

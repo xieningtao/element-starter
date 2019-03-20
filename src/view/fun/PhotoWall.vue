@@ -87,7 +87,7 @@ export default {
       this.currentIndex = index;
     window.event.currentTarget.getElementsByTagName(
         "img"
-      )[0].style.transform="scale(1.2, 1.2)";
+      )[0].style.transform="scale(1.4, 1.4)";
     },
     getPicList() {
       const query = Bmob.Query("CardPicGroup");
@@ -119,7 +119,7 @@ export default {
 <style type="text/scss" lang="scss">
 $imgFactor: 0.3;
 $imgMargin: 10px;
-$wallWidth: (0.3 * 720 * 6 + 10 * 2 * 6 + 6 * 2) px;
+$wallWidth: 50rem;
 .wallContainer {
   position: relative;
 }
@@ -134,14 +134,14 @@ $wallWidth: (0.3 * 720 * 6 + 10 * 2 * 6 + 6 * 2) px;
   list-style: none;
 }
 .wallImgContainer {
-  width: 150px;
+  width: $wallWidth/6;
   height: 250px;
   overflow: hidden;
   position: relative;
 }
 .wallImg {
-  width: 150px;
-  height: 250px;
+  width: $wallWidth/6;
+  height: 250;
   transform-origin: bottom right;
   transition: all 0.5s;
 }
