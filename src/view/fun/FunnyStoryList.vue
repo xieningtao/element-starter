@@ -1,19 +1,22 @@
 <template>
   <div style="width: 100%;height: 100%">
     <ul
-      style="list-style: none;background-color:lightsteelblue;padding-bottom: 20px;margin-top: 20px"
+      class="storyItemContainer"
     >
       <li v-for="(story,index) in stories" class="article-item">
+        <div class="bg"></div>
+        <div>
         <span class="article-title">
           <strong>{{story.title}}</strong>
         </span>
-        <div  :class='story.shouldToggle?"article-content-collapse":"article-content-expand"' ref="article-content">
+        <img class="imgFun" :src="story.funUrl"/>
+        <div
+          :class='story.shouldToggle?"article-content-collapse":"article-content-expand"'
+          ref="article-content"
+        >
           <div class="article-content_inner" v-html="story.content" @click="toPage(story,index)"></div>
-          <div
-           class="toggle"
-            @click="toggle(index)"
-            v-if="story.showToggle"
-          >toggle</div>
+          <div class="toggle" @click="toggle(index)" v-if="story.showToggle">toggle</div>
+        </div>
         </div>
       </li>
     </ul>
@@ -43,7 +46,8 @@ export default {
             "太好了\n" +
             "终于不用再去上学校",
           showToggle: false,
-          shouldToggle:false
+          shouldToggle: false,
+          funUrl: "http://img.adoutu.com/picture/1552837878081.jpg"
         },
         {
           title: "测试",
@@ -62,7 +66,8 @@ export default {
             "太好了<p></p>\n" +
             "终于不用再去上学校",
           showToggle: false,
-          shouldToggle:false
+          shouldToggle: false,
+          funUrl: "http://img.adoutu.com/picture/1552837878081.jpg"
         },
         {
           title: "测试",
@@ -81,7 +86,8 @@ export default {
             "太好了<p></p>\n" +
             "终于不用再去上学校",
           showToggle: false,
-          shouldToggle:false
+          shouldToggle: false,
+          funUrl: "http://img.adoutu.com/picture/1552837878081.jpg"
         }
       ]
     };
@@ -111,9 +117,9 @@ export default {
       var curHeight = this.$refs["article-content"][index].offsetHeight;
       if (curHeight > 100) {
         // this.$refs["article-content"][index].style.height = "100px";
-         this.stories[index].shouldToggle = true
+        this.stories[index].shouldToggle = true;
       } else {
-         this.stories[index].shouldToggle = false
+        this.stories[index].shouldToggle = false;
       }
     }
   }
@@ -126,22 +132,44 @@ export default {
   height: 100%;
 }
 
-.article-container > ul {
+.storyItemContainer {
   list-style: none;
   background-color: lightsteelblue;
   padding-bottom: 20px;
   margin-top: 20px;
+  padding-left: 0px;
 }
 .article-item {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
-  width: 90%;
+  width: 100%;
   margin-top: 20px;
   background-color: white;
-  padding: 10px;
+  /* padding: 10px; */
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  position: relative;
+}
+.bg{
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+  /* background: url("https://wx1.sinaimg.cn/mw690/006MWlXYly1g08faf50gmj30u0190kjo.jpg");  */
+}
+/* 高斯模糊 */
+.bg-blur {
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  -webkit-filter: blur(15px);
+  -moz-filter: blur(15px);
+  -o-filter: blur(15px);
+  -ms-filter: blur(15px);
+  filter: blur(15px);
 }
 
 .article-title {
@@ -178,9 +206,16 @@ export default {
   color: gray;
 }
 
-.toggle{
+.toggle {
   position: absolute;
   right: 10px;
-  bottom: 10px
+  bottom: 10px;
+}
+.imgFun {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 80px;
+  height: auto;
 }
 </style>

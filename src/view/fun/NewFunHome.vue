@@ -1,14 +1,15 @@
 <template>
-  <div>
-    <ul class="head">
-      <li
+  <div class="new_home_container">
+    <div class="head_container">
+      <div
         v-for="(item,index) in items"
         v-bind:key="index"
         v-bind:class="{active:item.active,unactive:!item.active}"
         v-on:click="toPage(index,item)"
-      >{{item.content}}</li>
-    </ul>
-
+      >
+        <p class="headSubItem">{{item.content}}</p>
+      </div>
+    </div>
     <div id="real_content">
       <router-view></router-view>
     </div>
@@ -54,39 +55,69 @@ export default {
 };
 </script>
 
-<style>
-.head {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  width: 50rem;
+<style type="text/scss" lang="scss" >
+$head_width: 60rem +1;
+.new_home_container{
+  margin-left:calc(100vw - 100%);
+  
+}
+.head_container {
+  height: 80px;
+  width: $head_width;
   background-color: #333;
-  margin: 20px auto;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: 100;
+  margin: 0px auto;
+  display: flex;
 }
 
-.head > .active {
+.head_container > .active {
   float: left;
   text-align: center;
-  padding: 14px 16px;
+  padding: 0px 16px;
   text-decoration: none;
+  margin: auto 0px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  color: white
 }
 
-.head > .unactive {
+.head_container > .unactive {
   float: left;
-  color: white;
+  color: gray;
   text-align: center;
-  padding: 14px 16px;
+  padding: 0px 16px;
   text-decoration: none;
+  margin: auto 0px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+}
+
+.head_container > .unactive:hover {
+  background-color: lightblue;
+}
+
+.headSubItem {
+  margin: auto 0px;
 }
 
 #real_content {
-  background: lightsteelblue;
-  width: 50rem;
+  /* background: lightsteelblue; */
+  width: 60rem;
   height: 100%;
   /*margin-top: 5rem;*/
   /* margin-left: 8rem; */
-  margin: 20px auto;
+  margin: 5px auto;
+  top: 80px;
+  position: relative;
+  box-shadow:0 0 10px #000;
+  border: solid 10px #fff;
+  border-top-width: 5px;
 }
 </style>
 

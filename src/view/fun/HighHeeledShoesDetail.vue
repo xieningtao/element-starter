@@ -5,7 +5,7 @@
         </el-header>
 
         <el-main class="markdown-edit-container">
-            <mavon-editor style="width:40%;height: 100%;align-self: center" v-model="content" :subfield="false"
+            <mavon-editor class="markdown-edit-content" v-model="content" :subfield="false"
                           :defaultOpen="defaultData" :toolbarsFlag="false" :boxShadow="false"/>
             <!--<div style="width:100%;display: flex;justify-content: center;align-items: center" v-html="myRender"></div>-->
         </el-main>
@@ -27,6 +27,7 @@
             }
         },
         created: function () {
+            debugger
             var param = this.$route.params;
             const query = Bmob.Query ('Article');
             const objectId = param.id
@@ -63,5 +64,10 @@
         flex-direction: column;
         justify-content: center;
     }
-
+.markdown-edit-content{
+    width:70%;
+    height: 100%;
+    align-self: center;
+    margin: 0px auto;
+}
 </style>
