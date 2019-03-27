@@ -1,5 +1,4 @@
-import repos from './modules/repos'
-import version from './modules/version'
+import photoWall from './photoWall'
 import Vuex from "vuex"
 import Vue from 'vue'
 import VuexPersistence from 'vuex-persist'
@@ -11,8 +10,7 @@ const vuexLocal = new VuexPersistence({
 })
 export default new Vuex.Store({
     modules: {
-        repos,
-        version
+        photoWall
     },
     plugins: [vuexLocal.plugin]
 })

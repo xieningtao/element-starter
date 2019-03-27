@@ -1,7 +1,7 @@
 import Edite from './view/Edit.vue'
 import Home from "./view/Home.vue"
 import FunHome from "./view/fun/NewFunHome.vue"
-import AddArticle from "./view/AddArticle.vue"
+import SaveMD from "./view/SaveMD.vue"
 import ArticleDetail from "./view/ArticleDetail.vue"
 import MainPage from "./view/fun/MainPage.vue"
 import FunnyStory from "./view/fun/FunnyStoryList.vue"
@@ -9,6 +9,7 @@ import HighHeeledShoesList from "./view/fun/HighHeeledShoesList.vue"
 import HighHeeledShoesDetail from "./view/fun/HighHeeledShoesDetail.vue"
 import FunnyStoryDetail from "./view/fun/FunnyStoryDetail.vue"
 import ErrorInfo from "./view/fun/ErrorInfo.vue"
+import PhotoPreview from "./view/fun/PhotoPreview.vue"
 import VueRouter from 'vue-router'
 
 const routes = [
@@ -42,8 +43,14 @@ const routes = [
         ]
     },
     {
-        path: "/addArticle",
-        component: AddArticle
+        path: "/PhotoPreview/:index",
+        component: PhotoPreview,
+        name: "photoPreview"
+    },
+    {
+        path: "/saveMD",
+        component: SaveMD,
+        name: "saveMD"
     },
     {
         path: "/articleDetail/:id",

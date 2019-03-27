@@ -54,7 +54,7 @@
             </el-tabs>
         </el-main>
         <el-footer>
-            <router-link to="/addArticle">
+            <router-link to="/saveMD">
                 <div style="display: block;position: fixed;right: 10px;bottom: 10px">
                     <el-button type="primary" icon="el-icon-edit" :round=true>
                         添加

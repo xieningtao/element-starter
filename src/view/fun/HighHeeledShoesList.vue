@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="shoesContainer">
     <ul class="shoesList">
       <li v-for="(item,index) in shoesItems">
         <div
@@ -33,7 +33,7 @@ export default {
             "https://img30.360buyimg.com/popWaterMark/jfs/t1/25080/23/8276/140965/5c753a39E31016a18/a07114c257c0f4ff.jpg",
           readNum: "10",
           commentNum: "22",
-          detailId: "35c81d4c4c"
+          detailId: "1515269ccb"
         },
         {
           title: "item two title",
@@ -62,7 +62,8 @@ export default {
           imgUrl:
             "https://img30.360buyimg.com/popWaterMark/jfs/t1/7130/28/15982/173289/5c753a38E50579fd2/78296d1f13e45b83.jpg",
           readNum: "10",
-          commentNum: "22"
+          commentNum: "22",
+          detailId:"b2e7933d6b"
         },
         {
           title: "item two title",
@@ -92,14 +93,14 @@ export default {
       window.event.currentTarget.getElementsByTagName(
         "img"
       )[0].style.transform = "scale(1.1,1.1)";
-      this.$refs["itemTitle"][index].style.color = "black";
+      this.$refs["itemTitle"][index].style.textDecoration = "underline";
     },
     leave(index) {
       console.log("leave");
       window.event.currentTarget.getElementsByTagName(
         "img"
       )[0].style.transform = "scale(1.0,1.0)";
-      this.$refs["itemTitle"][index].style.color = "gray";
+      this.$refs["itemTitle"][index].style.textDecoration = "none";
     },
     toDetail(item, index) {
       // this.$router.push ({name: 'shoesDetail', params: {id: "1725cbce5f"}})
@@ -116,15 +117,23 @@ export default {
 </script>
 
 <style>
+
+.shoesContainer{
+  background-color: lightpink;
+  padding-bottom: 10px;
+  padding-top: 10px;
+
+}
 .item {
-  width: 100%;
+  width: 80%;
   height: 150px;
   display: flex;
+  margin: 0px auto;
   flex-direction: row;
   background-color: white;
   justify-content: space-between;
   border-radius: 5px;
-  margin-top: 10px;
+  margin-bottom: 10px;
   box-shadow: 2px 2px 3px #aaaaaa;
   overflow: hidden;
 }
@@ -149,16 +158,16 @@ export default {
 
 .shoesList {
   list-style-type: none;
-  padding-left: 0px;
-  padding-right: 0px;
-  padding-top: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+   margin-top: 0px;
 }
 
 .itemTitle {
   margin-top: 10px;
   margin-left: 10px;
   font-size: 30px;
-  color: gray;
+  color: black;
 }
 .item-content_inner {
   margin-top: 10px;

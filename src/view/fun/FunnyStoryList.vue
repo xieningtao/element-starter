@@ -1,22 +1,20 @@
 <template>
-  <div style="width: 100%;height: 100%">
-    <ul
-      class="storyItemContainer"
-    >
+  <div class="article-container">
+    <ul class="storyItemContainer">
       <li v-for="(story,index) in stories" class="article-item">
-        <div class="bg"></div>
-        <div>
-        <span class="article-title">
-          <strong>{{story.title}}</strong>
-        </span>
-        <img class="imgFun" :src="story.funUrl"/>
-        <div
-          :class='story.shouldToggle?"article-content-collapse":"article-content-expand"'
-          ref="article-content"
-        >
-          <div class="article-content_inner" v-html="story.content" @click="toPage(story,index)"></div>
-          <div class="toggle" @click="toggle(index)" v-if="story.showToggle">toggle</div>
-        </div>
+        <!-- <div class="bg"></div> -->
+        <div class="article-item-subcontainer">
+          <span class="article-title">
+            <strong>{{story.title}}</strong>
+          </span>
+          <img class="imgFun" :src="story.funUrl">
+          <div
+            :class="story.shouldToggle? 'article-content-collapse':'article-content-expand'"
+            ref="article-content"
+          >
+            <div class="article-content_inner" v-html="story.content" @click="toPage(story,index)"></div>
+            <div class="toggle" @click="toggle(index)" v-if="story.showToggle">toggle</div>
+          </div>
         </div>
       </li>
     </ul>
@@ -47,7 +45,8 @@ export default {
             "终于不用再去上学校",
           showToggle: false,
           shouldToggle: false,
-          funUrl: "http://img.adoutu.com/picture/1552837878081.jpg"
+          funUrl: "http://img.adoutu.com/picture/1552837878081.jpg",
+          detailId: "bc60041687"
         },
         {
           title: "测试",
@@ -108,9 +107,11 @@ export default {
   methods: {
     toPage(story, index) {
       debugger;
-      //                this.$router.push({name:'funnyStoryDetail',params:{id:'123'}})
-      var link = "http://www.chanpin100.com/article/107984";
-      window.open(link, "_blank"); //新窗口打开
+        let routeData = this.$router.resolve({
+        name: "funnyStoryDetail",
+        params: { id: item.detailId }
+      });
+      window.open(routeData.href, "_blank");
     },
     toggle(index) {
       debugger;
@@ -128,13 +129,13 @@ export default {
 
 <style>
 .article-container {
-  width: 100%;
-  height: 100%;
+  width: 80%;
+  height: 80%;
+  margin: 0px auto;
 }
 
 .storyItemContainer {
   list-style: none;
-  background-color: lightsteelblue;
   padding-bottom: 20px;
   margin-top: 20px;
   padding-left: 0px;
@@ -145,18 +146,19 @@ export default {
   width: 100%;
   margin-top: 20px;
   background-color: white;
-  /* padding: 10px; */
   overflow: hidden;
   display: flex;
   flex-direction: column;
   position: relative;
+  border-radius: 5px;
 }
-.bg{
-    position: absolute;
-    top: 0px;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
+
+.bg {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
   /* background: url("https://wx1.sinaimg.cn/mw690/006MWlXYly1g08faf50gmj30u0190kjo.jpg");  */
 }
 /* 高斯模糊 */
@@ -182,7 +184,6 @@ export default {
   font-size: 16px;
   color: gray;
   position: relative;
-  width: 100%;
   height: 100px;
 }
 
@@ -190,15 +191,23 @@ export default {
   font-size: 16px;
   color: gray;
   position: relative;
-  width: 100%;
   height: auto;
+ 
 }
+.article-item-subcontainer{
+  background: white;
+  padding: 10px;
+}
+
+.article-item-subcontainer:hover{
+  background: lightsalmon;
+} 
 
 .article-content_inner {
   margin-right: 20px;
   margin-bottom: 20px;
-  width: 100%;
   height: 100%;
+  margin-right: 100px;
 }
 
 .article-content {

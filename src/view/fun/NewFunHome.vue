@@ -13,6 +13,8 @@
     <div id="real_content">
       <router-view></router-view>
     </div>
+
+    <div class="addContainer" @click="addInfo">添加</div>
   </div>
 </template>
 
@@ -20,6 +22,7 @@
 export default {
   data() {
     return {
+      curIndex: -1,
       items: [
         { content: "女神", active: true },
         { content: "高跟鞋", active: false },
@@ -31,11 +34,21 @@ export default {
     debugger;
     //            toPage("才当意")
     this.$router.replace({ name: "mainPage", params: { tag: "女神" } });
+    this.curIndex = 0;
     //            this.$router.replace ({name: 'shoesList'})
   },
   methods: {
+    addInfo() {
+      if (this.curIndex == 0) {
+      } else if (this.curIndex == 1) {
+        this.$router.push({ name: "saveMD", params: { type: this.GLOBAL.HEEL } });
+      } else {
+        this.$router.push({ name: "saveMD", params: { type: this.GLOBAL.FUNNY_STORY }});
+      }
+    },
     toPage(index, item) {
       debugger;
+      this.curIndex = index;
       if (index == 1) {
         this.$router.replace({ name: "shoesList" });
       } else if (index == 2) {
@@ -56,10 +69,25 @@ export default {
 </script>
 
 <style type="text/scss" lang="scss" >
-$head_width: 60rem +1;
-.new_home_container{
-  margin-left:calc(100vw - 100%);
-  
+$head_width: 60rem;
+.new_home_container {
+  margin-left: calc(100vw - 100%);
+}
+
+.addContainer {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  background-color: gray;
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  text-align: center; //水平居中
+  line-height: 60px; //跟高度一样
+}
+
+.addContainer:hover {
+  background-color: lightgreen;
 }
 .head_container {
   height: 80px;
@@ -83,7 +111,7 @@ $head_width: 60rem +1;
   height: 80px;
   display: flex;
   justify-content: center;
-  color: white
+  color: white;
 }
 
 .head_container > .unactive {
@@ -115,9 +143,9 @@ $head_width: 60rem +1;
   margin: 5px auto;
   top: 80px;
   position: relative;
-  box-shadow:0 0 10px #000;
-  border: solid 10px #fff;
-  border-top-width: 5px;
+  box-shadow: 0 0 10px #000;
+  border: solid 2px #fff;
+  border-top-width: 2px;
 }
 </style>
 
