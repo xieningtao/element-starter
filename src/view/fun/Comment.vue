@@ -179,6 +179,7 @@ export default {
       debugger;
       let tableName = this.getCommentTable();
       const query = Bmob.Query(tableName);
+      query.order("-updatedAt");
       query.equalTo("articleId", "==", this.articleId);
       query
         .find()

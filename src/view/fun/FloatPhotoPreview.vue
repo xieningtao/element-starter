@@ -15,7 +15,8 @@ export default {
     return {
       curPreviewIndex: -1,
       allPhotos: [],
-      preview_url: ""
+      preview_url: "",
+      subPhotos: []
     };
   },
 
@@ -28,14 +29,18 @@ export default {
     let _this = this;
     bus.$on("imgWallClick", function(message) {
       debugger;
-      _this.curPreviewIndex = message.index;
-      _this.allPhotos = message.allPhotos;
-      if (
-        _this.curPreviewIndex >= 0 &&
-        _this.curPreviewIndex < _this.allPhotos.length
-      ) {
-        _this.preview_url = _this.allPhotos[_this.curPreviewIndex].imgUrl;
-      }
+      _this.preview_url = message.photoUrl;
+      _this.subPhotos.push(message);
+      _this.getSubImgs(message.objectId);
+      _this.curPreviewIndex = 0;
+      // _this.curPreviewIndex = message.index;
+      // _this.allPhotos = message.allPhotos;
+      // if (
+      //   _this.curPreviewIndex >= 0 &&
+      //   _this.curPreviewIndex < _this.allPhotos.length
+      // ) {
+      //   _this.preview_url = _this.allPhotos[_this.curPreviewIndex].photoUrl;
+      // }
     });
     document.onkeydown = function(e) {
       let _key = window.event.keyCode;
@@ -47,28 +52,47 @@ export default {
         _this.onRight();
       }
     };
-    if (
-      this.curPreviewIndex >= 0 &&
-      this.curPreviewIndex < this.allPhotos.length
-    ) {
-      this.preview_url = this.allPhotos[this.curPreviewIndex].imgUrl;
-    }
+    // if (
+    //   this.curPreviewIndex >= 0 &&
+    //   this.curPreviewIndex < this.allPhotos.length
+    // ) {
+    //   this.preview_url = this.allPhotos[this.curPreviewIndex].imgUrl;
+    // }
   },
   methods: {
+    getSubImgs(objectId) {
+      const query = Bmob.Query("SubBeauty");
+      const pointer = Bmob.Pointer("BeautyGroup");
+      const pointerId = pointer.set(objectId);
+      query.equalTo("groupId", "==", pointerId);
+      query
+        .find()
+        .then(res => {
+          console.log(JSON.stringify(res));
+          for (var i = 0; i < res.length; i++) {
+            this.subPhotos.push(res[i]);
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
     onLeft() {
       debugger;
       if (this.curPreviewIndex > 0) {
         this.curPreviewIndex--;
-        this.preview_url = this.allPhotos[this.curPreviewIndex].imgUrl;
+        // this.preview_url = this.allPhotos[this.curPreviewIndex].imgUrl;
+        this.preview_url = this.subPhotos[this.curPreviewIndex].photoUrl;
       } else {
         alert("first one");
       }
     },
     onRight() {
       debugger;
-      if (this.curPreviewIndex < this.allPhotos.length) {
+      if (this.curPreviewIndex < this.subPhotos.length) {
         this.curPreviewIndex++;
-        this.preview_url = this.allPhotos[this.curPreviewIndex].imgUrl;
+        // this.preview_url = this.allPhotos[this.curPreviewIndex].imgUrl;
+        this.preview_url = this.subPhotos[this.curPreviewIndex].photoUrl;
       } else {
         alert("last one");
       }

@@ -14,7 +14,9 @@
       <router-view></router-view>
     </div>
 
-    <div class="addContainer" @click="addInfo">添加</div>
+    <div class="addContainer" @click="addInfo">
+      <el-button type="primary" circle icon="el-icon-plus" />
+    </div>
   </div>
 </template>
 
@@ -40,11 +42,20 @@ export default {
   methods: {
     addInfo() {
       if (this.curIndex == 0) {
-        this.$router.push({ name: "uploadPhotos", params: { type: this.GLOBAL.BEAUTY } });
+        this.$router.push({
+          name: "uploadPhotos",
+          params: { type: this.GLOBAL.BEAUTY }
+        });
       } else if (this.curIndex == 1) {
-        this.$router.push({ name: "saveMD", params: { type: this.GLOBAL.HEEL } });
+        this.$router.push({
+          name: "saveMD",
+          params: { type: this.GLOBAL.HEEL }
+        });
       } else {
-        this.$router.push({ name: "saveMD", params: { type: this.GLOBAL.FUNNY_STORY }});
+        this.$router.push({
+          name: "saveMD",
+          params: { type: this.GLOBAL.FUNNY_STORY }
+        });
       }
     },
     toPage(index, item) {
@@ -77,18 +88,18 @@ $head_width: 60rem;
 
 .addContainer {
   position: fixed;
-  right: 20px;
+  right: 30px;
   bottom: 20px;
-  background-color: gray;
-  width: 60px;
-  height: 60px;
+  // background-color: gray;
+  // width: 60px;
+  // height: 60px;
   border-radius: 30px;
   text-align: center; //水平居中
   line-height: 60px; //跟高度一样
 }
 
 .addContainer:hover {
-  background-color: lightgreen;
+  // background-color: lightgreen;
 }
 .head_container {
   height: 80px;

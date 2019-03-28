@@ -10,9 +10,7 @@
         >
           <div class="item-article">
             <div class="itemTitle" ref="itemTitle">{{item.title}}</div>
-            <div class="item-diggest_inner">
-              {{item.diggest}}
-            </div>
+            <div class="item-diggest_inner">{{item.diggest}}</div>
           </div>
           <img v-bind:src="item.imgUrl" ref="shoesImg">
         </div>
@@ -90,7 +88,6 @@ export default {
   },
   methods: {
     enter(index) {
-      debugger;
       console.log("enter");
       window.event.currentTarget.getElementsByTagName(
         "img"
@@ -131,7 +128,6 @@ export default {
   margin: 0px auto;
   flex-direction: row;
   background-color: white;
-  justify-diggest: space-between;
   border-radius: 5px;
   margin-bottom: 10px;
   box-shadow: 2px 2px 3px #aaaaaa;
@@ -142,6 +138,7 @@ export default {
 }
 .item-article {
   margin-right: 20px;
+  flex-grow: 2;
 }
 
 .item > img {

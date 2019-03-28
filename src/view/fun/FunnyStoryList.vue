@@ -46,7 +46,7 @@ export default {
           showToggle: false,
           shouldToggle: false,
           funUrl: "http://img.adoutu.com/picture/1552837878081.jpg",
-          detailId: "bc60041687"
+          detailId: "675373410d"
         },
         {
           title: "测试",
@@ -109,7 +109,7 @@ export default {
       debugger;
         let routeData = this.$router.resolve({
         name: "funnyStoryDetail",
-        params: { id: item.detailId }
+        params: { id: story.detailId }
       });
       window.open(routeData.href, "_blank");
     },

@@ -11,13 +11,14 @@
     <!-- <div style="width:50%;display: flex;justify-content: center;align-items: center" v-html="myRender"></div> -->
     <!-- <div class="markdown-edit-content" v-html="myRender"></div> -->
     <div class="storyCommentCotainer">
-      <comment class="storyComment" :type="story"></comment>
+      <comment class="storyComment" :type="type" :articleId="articleId"></comment>
     </div>
   </div>
 </template>
 
 
 <script>
+import Comment from "./Comment.vue";
 import "mavon-editor/dist/css/index.css";
 var mavonEditor = require("mavon-editor");
 
@@ -27,14 +28,17 @@ export default {
       content: "",
       myRender: "",
       title: "",
-      defaultData: "preview"
+      defaultData: "preview",
+      type:"story",
+      articleId:""
     };
   },
   created: function() {
     debugger;
     var param = this.$route.params;
-    const query = Bmob.Query("Article");
-    const objectId = param.id;
+     const objectId = param.id;
+    this.articleId = objectId;
+    const query = Bmob.Query("FunnyStory");
     query
       .get(objectId)
       .then(res => {
@@ -54,7 +58,8 @@ export default {
     }
   },
   components: {
-    "mavon-editor": mavonEditor.mavonEditor
+    "mavon-editor": mavonEditor.mavonEditor,
+    Comment
   }
 };
 </script>

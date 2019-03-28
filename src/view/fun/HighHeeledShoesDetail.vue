@@ -72,9 +72,11 @@ export default {
   background: url("https://files-cdn.cnblogs.com/files/mrszhou/jijian2.bmp")
     no-repeat top center fixed;
   width: 100%;
-  height: auto;
+  height: 100%;
+  box-sizing: border-box;
   padding-bottom: 20px;
   padding-top: 20px;
+  overflow: scroll;
   // border: solid 1px transparent;
 }
 .markdown-edit-container {

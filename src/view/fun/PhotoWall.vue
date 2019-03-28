@@ -3,7 +3,7 @@
     <ul>
       <li v-for="(item,index) in photos">
         <div class="wallImgContainer" @mouseleave="mouseLeave(index)" @mouseover="mouseOver(index)">
-          <img class="wallImg" :src="item.imgUrl" @click="previewImg(item,index)">
+          <img class="wallImg" :src="item.photoUrl" @click="previewImg(item,index)">
           <transition name="show">
             <div class="wallFront" v-show="currentIndex == index">
               <p>test one</p>
@@ -57,8 +57,8 @@ export default {
       //   params: { index: index }
       // });
       // window.open(routeData.href, "_blank");
-      var allPhotos = this.photos;
-      bus.$emit("imgWallClick",{index,allPhotos});
+      // var allPhotos = this.photos;
+      bus.$emit("imgWallClick",item);
     },
 
     getDiggest(diggest) {
@@ -86,7 +86,7 @@ export default {
       )[0].style.transform = "scale(1.5, 1.5)";
     },
     getPicList() {
-      const query = Bmob.Query("CardPicGroup");
+      const query = Bmob.Query("BeautyGroup");
       query.order("-updatedAt");
       query.limit(this.pageSize);
       query.skip(this.pageNum * this.pageSize);
