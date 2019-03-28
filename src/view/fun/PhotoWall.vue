@@ -3,7 +3,7 @@
     <ul>
       <li v-for="(item,index) in photos">
         <div class="wallImgContainer" @mouseleave="mouseLeave(index)" @mouseover="mouseOver(index)">
-          <img class="wallImg" :src="item.imgUrl" preview="1">
+          <img class="wallImg" :src="item.imgUrl" @click="previewImg(item,index)">
           <transition name="show">
             <div class="wallFront" v-show="currentIndex == index">
               <p>test one</p>
@@ -18,7 +18,7 @@
 </template>
 
 <script>
-//@click="previewImg(item,index)"
+import bus from "../common/bus.js"
 import { mapState, mapActions } from "vuex";
 export default {
   data() {
@@ -52,11 +52,13 @@ export default {
     ...mapActions("photoWall", ["storeAllPhotos"]),
     previewImg(item, index) {
       debugger;
-      let routeData = this.$router.resolve({
-        name: "photoPreview",
-        params: { index: index }
-      });
-      window.open(routeData.href, "_blank");
+      // let routeData = this.$router.resolve({
+      //   name: "photoPreview",
+      //   params: { index: index }
+      // });
+      // window.open(routeData.href, "_blank");
+      var allPhotos = this.photos;
+      bus.$emit("imgWallClick",{index,allPhotos});
     },
 
     getDiggest(diggest) {

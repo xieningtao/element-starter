@@ -40,6 +40,7 @@ export default {
   methods: {
     addInfo() {
       if (this.curIndex == 0) {
+        this.$router.push({ name: "uploadPhotos", params: { type: this.GLOBAL.BEAUTY } });
       } else if (this.curIndex == 1) {
         this.$router.push({ name: "saveMD", params: { type: this.GLOBAL.HEEL } });
       } else {

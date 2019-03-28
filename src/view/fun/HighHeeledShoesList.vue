@@ -10,7 +10,9 @@
         >
           <div class="item-article">
             <div class="itemTitle" ref="itemTitle">{{item.title}}</div>
-            <div class="item-content_inner">{{item.content}}</div>
+            <div class="item-diggest_inner">
+              {{item.diggest}}
+            </div>
           </div>
           <img v-bind:src="item.imgUrl" ref="shoesImg">
         </div>
@@ -26,7 +28,7 @@ export default {
       shoesItems: [
         {
           title: "item one title",
-          content:
+          diggest:
             "item one title ----------------fsfsdlfjlsdjfk---------fjslkfjskljfsdkjfs------------------------------------------------------------------------- jflsjf ksldj fklsj flj ksdjfls jfsd lkfjsdkl",
           // imgUrl: "https://farm6.staticflickr.com/5591/15008867125_68a8ed88cc_m.jpg",
           imgUrl:
@@ -37,17 +39,17 @@ export default {
         },
         {
           title: "item two title",
-          content: "item two title",
+          diggest: "item two title",
           // imgUrl: "https://farm6.staticflickr.com/5591/15008867125_68a8ed88cc_m.jpg",
           imgUrl:
             "https://img30.360buyimg.com/popWaterMark/jfs/t1/7130/28/15982/173289/5c753a38E50579fd2/78296d1f13e45b83.jpg",
           readNum: "10",
           commentNum: "22",
-          detailId:"8393438a0d"
+          detailId: "8393438a0d"
         },
         {
           title: "item two title",
-          content: "item two title",
+          diggest: "item two title",
           // imgUrl: "https://farm6.staticflickr.com/5591/15008867125_68a8ed88cc_m.jpg",
           imgUrl:
             "https://img30.360buyimg.com/popWaterMark/jfs/t1/7130/28/15982/173289/5c753a38E50579fd2/78296d1f13e45b83.jpg",
@@ -57,17 +59,17 @@ export default {
         },
         {
           title: "item two title",
-          content: "item two title",
+          diggest: "item two title",
           // imgUrl: "https://farm6.staticflickr.com/5591/15008867125_68a8ed88cc_m.jpg",
           imgUrl:
             "https://img30.360buyimg.com/popWaterMark/jfs/t1/7130/28/15982/173289/5c753a38E50579fd2/78296d1f13e45b83.jpg",
           readNum: "10",
           commentNum: "22",
-          detailId:"b2e7933d6b"
+          detailId: "b2e7933d6b"
         },
         {
           title: "item two title",
-          content: "item two title",
+          diggest: "item two title",
           // imgUrl: "https://farm6.staticflickr.com/5591/15008867125_68a8ed88cc_m.jpg",
           imgUrl:
             "https://img30.360buyimg.com/popWaterMark/jfs/t1/7130/28/15982/173289/5c753a38E50579fd2/78296d1f13e45b83.jpg",
@@ -76,7 +78,7 @@ export default {
         },
         {
           title: "item two title",
-          content: "item two title",
+          diggest: "item two title",
           // imgUrl: "https://farm6.staticflickr.com/5591/15008867125_68a8ed88cc_m.jpg",
           imgUrl:
             "https://img30.360buyimg.com/popWaterMark/jfs/t1/7130/28/15982/173289/5c753a38E50579fd2/78296d1f13e45b83.jpg",
@@ -117,12 +119,10 @@ export default {
 </script>
 
 <style>
-
-.shoesContainer{
+.shoesContainer {
   background-color: lightpink;
   padding-bottom: 10px;
   padding-top: 10px;
-
 }
 .item {
   width: 80%;
@@ -131,7 +131,7 @@ export default {
   margin: 0px auto;
   flex-direction: row;
   background-color: white;
-  justify-content: space-between;
+  justify-diggest: space-between;
   border-radius: 5px;
   margin-bottom: 10px;
   box-shadow: 2px 2px 3px #aaaaaa;
@@ -160,7 +160,7 @@ export default {
   list-style-type: none;
   padding-left: 20px;
   padding-right: 20px;
-   margin-top: 0px;
+  margin-top: 0px;
 }
 
 .itemTitle {
@@ -169,7 +169,7 @@ export default {
   font-size: 30px;
   color: black;
 }
-.item-content_inner {
+.item-diggest_inner {
   margin-top: 10px;
   margin-left: 10px;
   font-size: 20px;

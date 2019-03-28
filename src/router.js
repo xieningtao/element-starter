@@ -10,6 +10,7 @@ import HighHeeledShoesDetail from "./view/fun/HighHeeledShoesDetail.vue"
 import FunnyStoryDetail from "./view/fun/FunnyStoryDetail.vue"
 import ErrorInfo from "./view/fun/ErrorInfo.vue"
 import PhotoPreview from "./view/fun/PhotoPreview.vue"
+import UploadPhotos from "./view/fun/UploadPhotos.vue"
 import VueRouter from 'vue-router'
 
 const routes = [
@@ -68,6 +69,10 @@ const routes = [
         path: "/errorinfo",
         component: ErrorInfo,
         name: "errorInfo"
+    }, {
+        path: "/uploadPhotos",
+        component: UploadPhotos,
+        name: "uploadPhotos"
     }
 ]
 const router = new VueRouter({

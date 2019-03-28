@@ -1,9 +1,9 @@
 <script>
-const BEAUTI = "beauty";
+const BEAUTY = "beauty";
 const HEEL = "heel";
 const FUNNY_STORY = "funny_story";
 export default {
-  BEAUTI,
+  BEAUTY,
   HEEL,
   FUNNY_STORY
 };
