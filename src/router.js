@@ -5,6 +5,7 @@ import SaveMD from "./view/SaveMD.vue"
 import ArticleDetail from "./view/ArticleDetail.vue"
 import MainPage from "./view/fun/MainPage.vue"
 import FunnyStory from "./view/fun/FunnyStoryList.vue"
+import FlatFunnyStoryList from "./view/fun/FlatFunnyStoryList.vue"
 import HighHeeledShoesList from "./view/fun/HighHeeledShoesList.vue"
 import HighHeeledShoesDetail from "./view/fun/HighHeeledShoesDetail.vue"
 import FunnyStoryDetail from "./view/fun/FunnyStoryDetail.vue"
@@ -40,6 +41,10 @@ const routes = [
                 path: "funnyStory",
                 component: FunnyStory,
                 name: "funnyStory"
+            }, {
+                path: "flatFunnyStoryList",
+                component: FlatFunnyStoryList,
+                name: "flatFunnyStoryList"
             }
         ]
     },

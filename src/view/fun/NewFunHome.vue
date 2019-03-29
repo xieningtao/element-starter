@@ -64,7 +64,7 @@ export default {
       if (index == 1) {
         this.$router.replace({ name: "shoesList" });
       } else if (index == 2) {
-        this.$router.replace({ name: "funnyStory" });
+        this.$router.replace({ name: "flatFunnyStoryList" });
       } else {
         this.$router.replace({
           name: "mainPage",

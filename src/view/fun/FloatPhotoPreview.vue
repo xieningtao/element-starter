@@ -29,7 +29,7 @@ export default {
     let _this = this;
     bus.$on("imgWallClick", function(message) {
       debugger;
-      _this.preview_url = message.photoUrl;
+      _this.preview_url = message.imgUrl;
       _this.subPhotos.push(message);
       _this.getSubImgs(message.objectId);
       _this.curPreviewIndex = 0;
@@ -39,7 +39,7 @@ export default {
       //   _this.curPreviewIndex >= 0 &&
       //   _this.curPreviewIndex < _this.allPhotos.length
       // ) {
-      //   _this.preview_url = _this.allPhotos[_this.curPreviewIndex].photoUrl;
+      //   _this.preview_url = _this.allPhotos[_this.curPreviewIndex].imageUrl;
       // }
     });
     document.onkeydown = function(e) {
@@ -56,15 +56,18 @@ export default {
     //   this.curPreviewIndex >= 0 &&
     //   this.curPreviewIndex < this.allPhotos.length
     // ) {
-    //   this.preview_url = this.allPhotos[this.curPreviewIndex].imgUrl;
+    //   this.preview_url = this.allPhotos[this.curPreviewIndex].imageUrl;
     // }
   },
   methods: {
     getSubImgs(objectId) {
-      const query = Bmob.Query("SubBeauty");
-      const pointer = Bmob.Pointer("BeautyGroup");
+      // const query = Bmob.Query("SubBeauty");
+      // const pointer = Bmob.Pointer("BeautyGroup");
+
+      const query = Bmob.Query("CardPicBean");
+      const pointer = Bmob.Pointer("CardPicGroup");
       const pointerId = pointer.set(objectId);
-      query.equalTo("groupId", "==", pointerId);
+      query.equalTo("PicGroupId", "==", pointerId);
       query
         .find()
         .then(res => {
@@ -82,23 +85,32 @@ export default {
       if (this.curPreviewIndex > 0) {
         this.curPreviewIndex--;
         // this.preview_url = this.allPhotos[this.curPreviewIndex].imgUrl;
-        this.preview_url = this.subPhotos[this.curPreviewIndex].photoUrl;
+        if (this.curPreviewIndex == 0) {
+          this.preview_url = this.subPhotos[this.curPreviewIndex].imgUrl;
+        } else {
+          this.preview_url = this.subPhotos[this.curPreviewIndex].imageUrl;
+        }
       } else {
         alert("first one");
       }
     },
     onRight() {
       debugger;
-      if (this.curPreviewIndex < this.subPhotos.length) {
+      if (this.curPreviewIndex < this.subPhotos.length - 1) {
         this.curPreviewIndex++;
         // this.preview_url = this.allPhotos[this.curPreviewIndex].imgUrl;
-        this.preview_url = this.subPhotos[this.curPreviewIndex].photoUrl;
+        if (this.curPreviewIndex == 0) {
+          this.preview_url = this.subPhotos[this.curPreviewIndex].imgUrl;
+        } else {
+          this.preview_url = this.subPhotos[this.curPreviewIndex].imageUrl;
+        }
       } else {
         alert("last one");
       }
     },
     dimissPreView() {
       this.$emit("clickClose");
+      this.subPhotos = [];
     }
   }
 };
@@ -117,12 +129,13 @@ export default {
 
 .img_preview_container {
   height: 100%;
-  //   transform: scale(2, 2);
+  // transform: scale(2, 2);
 }
 .img_preview {
-  height: 100%;
-  //   width: 70%;
-  //   max-width: 100%;
+  // height: 100%;
+    width: 60%;
+    max-width: 100%;
+    // transform: scale(0.5, 0.5);
 }
 .img_preview_close {
   position: absolute;

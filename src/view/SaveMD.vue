@@ -1,18 +1,25 @@
 <template>
   <el-container style="height: 100%" direction="vertical">
-    <el-header style="width: 100%">
-      <div style="position:absolute;right: 10px;top: 10px">
+    <el-header class="saveHeader">
+      <div class="saveButtonContainer">
         <el-button @click="saveMD">保存</el-button>
       </div>
 
-      <div style="display:flex;justify-content:center;align-items:center;width: 100%;height: 100%">
-        <el-input style="width: 30%;text-align: center" v-model="blog_title" placeholder="请输入标题"></el-input>
+      <div class="saveInputContainer">
+        <el-input class="saveInput" v-model="title" placeholder="请输入标题"></el-input>
       </div>
     </el-header>
 
     <el-main>
+      <el-input
+        class="saveInputDiggest"
+        v-model="articleDiggest"
+        placeholder="请输入摘要"
+        type="textarea"
+        :autosize="{minRows: 3}"
+      ></el-input>
       <mavon-editor
-        style="width: 100%;height: 100%"
+        class="saveMavonEditor"
         @change="writeData"
         @save="saveMD"
         ref="md"
@@ -20,6 +27,16 @@
         @imgDel="$imgDel"
       />
     </el-main>
+
+    
+
+    <!-- <el-dialog title="提示" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
+      <span>{{dialogContent}}}</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+      </span>
+    </el-dialog> -->
   </el-container>
 </template>
 
@@ -34,7 +51,10 @@ export default {
     return {
       value: "",
       render: "",
-      blog_title: ""
+      title: "",
+      articleDiggest: "",
+      dialogVisible: false,
+      dialogContent:""
     };
   },
   methods: {
@@ -44,7 +64,7 @@ export default {
       this.render = render;
     },
 
-    saveMdByFile() {},
+    getDiggest(render) {},
     $imgDel(pos) {},
     // 绑定@imgAdd event
     $imgAdd(pos, $file) {
@@ -76,15 +96,26 @@ export default {
       } else {
         tableName = "";
       }
-      if(tableName == ""){
-        alert("没有适配类型")
+      if (tableName == "") {
+        alert("没有适配类型");
         return;
       }
       const query = Bmob.Query(tableName);
-      query.set("title", this.blog_title);
+      if (this.title == "") {
+        this.dialogVisible = true;
+        alert("标题不能为空")
+        return;
+      }
+      if (type !=this.GLOBAL.FUNNY_STORY && this.articleDiggest == "") {
+        this.dialogVisible = true;
+        alert("摘要不能为空")
+        return;
+      }
+      query.set("title", this.title);
       query.set("content", this.value);
       query.set("render", this.render);
-    //   query.set("type", type);
+      query.set("diggest",this.articleDiggest );
+      //   query.set("type", type);
       query
         .save()
         .then(res => {
@@ -102,4 +133,39 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+.saveInputContainer {
+  width: 100%;
+  height: 100%;
+}
+.saveHeader{
+  width: 100%;
+  padding-left: 0px;
+  padding-top: 10px;
+}
+.saveInput {
+  width: 60%;
+  position: relative;
+  left: 40px;
+}
+.saveButtonContainer {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+.saveMavonEditor {
+  width: 100%;
+  height: 100%;
+}
+.saveInputDiggest {
+  width: 60%;
+  position: relative;
+  display: block;
+  left: 40px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+</style>
+
 

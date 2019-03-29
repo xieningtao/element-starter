@@ -60,7 +60,7 @@ export default {
     savePhotos() {
       const query = Bmob.Query("BeautyGroup");
       query.set("title", this.title);
-      query.set("photoUrl", this.groupPhotoUrl);
+      query.set("imgUrl", this.groupPhotoUrl);
       query
         .save()
         .then(res => {
@@ -77,8 +77,8 @@ export default {
             const pointer = Bmob.Pointer("BeautyGroup");
             const pointerId = pointer.set(res.objectId);
             const subQuery = Bmob.Query("SubBeauty");
-            subQuery.set("groupId", pointerId);
-            subQuery.set("photoUrl", this.subPhotoUrls[i]);
+            subQuery.set("PicGroupId", pointerId);
+            subQuery.set("imgUrl", this.subPhotoUrls[i]);
             queryArray.push(subQuery);
           }
           Bmob.Query("SubBeauty")

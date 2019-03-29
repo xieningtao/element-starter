@@ -1,19 +1,41 @@
 <template>
   <div class="article-container">
     <ul class="storyItemContainer">
-      <li v-for="(story,index) in stories" class="article-item">
+      <li v-for="(story,index) in stories" class="markdown-body article-item">
         <!-- <div class="bg"></div> -->
         <div class="article-item-subcontainer">
-          <span class="article-title">
+          <!-- <span class="article-title">
             <strong>{{story.title}}</strong>
-          </span>
+          </span>-->
           <img class="imgFun" :src="story.funUrl">
-          <div
-            :class="story.shouldToggle? 'article-content-collapse':'article-content-expand'"
-            ref="article-content"
-          >
-            <div class="article-content_inner" v-html="story.content" @click="toPage(story,index)"></div>
-            <div class="toggle" @click="toggle(index)" v-if="story.showToggle">展开</div>
+          <div class="article-content-expand" ref="article-content">
+            <div class="article-content_inner" v-html="story.render" @click="toPage(story,index)"></div>
+          </div>
+          <div class="funStoryAction">
+            <div class="actionItem funStoryPraise">
+              <div class="actionContiner">
+                <img class="actionImg" src="/src/assets/fun/praise.svg">
+                <p>
+                  <strong>222</strong>
+                </p>
+              </div>
+            </div>
+            <div class="actionItem funStoryView">
+              <div class="actionContiner">
+                <img class="actionImg" src="/src/assets/fun/views.svg">
+                <p>
+                  <strong>111</strong>
+                </p>
+              </div>
+            </div>
+            <div class="actionItemEnd funStoryComment">
+              <div class="actionContiner">
+                <img class="actionImg" src="/src/assets/fun/comment.svg">
+                <p>
+                  <strong>123</strong>
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </li>
@@ -22,61 +44,42 @@
 </template>
 
 <script>
+import "mavon-editor/dist/css/index.css";
 export default {
   data() {
     return {
       pageSize: 10,
       pageNum: 0,
-      storyFlags: [],
       stories: []
     };
   },
   mounted() {
     debugger;
+    this.getStories();
   },
   methods: {
     getStories() {
       const query = Bmob.Query("FunnyStory");
+      query.order("-updatedAt");
+      query.limit(this.pageSize);
+      query.skip(this.pageNum * this.pageSize);
       query
-        .order("-updatedAt")
-        .limit(this.pageSize)
-        .skip(this.pageNum * this.pageSize)
+        .find()
         .then(res => {
           console.log(JSON.stringify(res));
           this.stories = res;
-          this.initStoryFlags();
         })
         .catch(err => {
           console.log(err);
         });
     },
-    initStoryFlags() {
-      for (let index = 0; index < this.stories.length; index++) {
-        var curHeight = this.$refs["article-content"][index].offsetHeight;
-        if (curHeight > 100) {
-          this.storyFlags.push({ showToggle: true, shouldToggle: true });
-        } else {
-          this.storyFlags.push({ showToggle: false, shouldToggle: false });
-        }
-      }
-    },
     toPage(story, index) {
       debugger;
       let routeData = this.$router.resolve({
         name: "funnyStoryDetail",
-        params: { id: story.detailId }
+        params: { id: story.objectId }
       });
       window.open(routeData.href, "_blank");
-    },
-    toggle(index) {
-      debugger;
-      var curHeight = this.$refs["article-content"][index].offsetHeight;
-      if (curHeight > 100) {
-        // this.$refs["article-content"][index].style.height = "100px";
-        this.storyFlags[index].shouldToggle = true;
-      } else {
-        this.storyFlags[index].shouldToggle = false;
-      }
     }
   }
 };
@@ -105,7 +108,6 @@ export default {
   display: flex;
   flex-direction: column;
   position: relative;
-  border-radius: 5px;
 }
 
 .bg {
@@ -130,7 +132,7 @@ export default {
 }
 
 .article-title {
-  font-size: 20px;
+  font-size: 16px;
   color: #010101;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -153,9 +155,9 @@ export default {
   padding: 10px;
 }
 
-.article-item-subcontainer:hover {
+/* .article-item-subcontainer:hover {
   background: lightsalmon;
-}
+} */
 
 .article-content_inner {
   margin-right: 20px;
@@ -180,5 +182,57 @@ export default {
   top: 10px;
   width: 80px;
   height: auto;
+}
+.funStoryAction {
+  width: 100%;
+  height: 50px;
+  border: solid 1px lightgray;
+  border-top-width: 1px;
+  border-left-width: 0px;
+  border-right-width: 0px;
+  border-bottom-width: 0px;
+  padding-top: 10px;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+}
+.actionItem {
+  height: 100%;
+  line-height: 50px;
+  flex-grow: 1;
+  text-align: center;
+  border: solid 1px lightgray;
+  border-top-width: 0px;
+  border-left-width: 0px;
+  border-right-width: 1px;
+  border-bottom-width: 0px;
+  position: relative;
+}
+.actionItemEnd {
+  height: 100%;
+  line-height: 50px;
+  flex-grow: 1;
+  text-align: center;
+  position: relative;
+}
+.actionContiner {
+  width: 30%;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.funStoryAction p {
+  left: 10px;
+  position: relative;
+  margin: 0px;
+  align-self: center;
+}
+.actionImg {
+  width: 40px;
+  height: 40px;
+  align-self: center;
 }
 </style>

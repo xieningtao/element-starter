@@ -33,7 +33,7 @@ export default {
             "https://img30.360buyimg.com/popWaterMark/jfs/t1/25080/23/8276/140965/5c753a39E31016a18/a07114c257c0f4ff.jpg",
           readNum: "10",
           commentNum: "22",
-          detailId: "1515269ccb"
+          detailId: "adae1b1d8c"
         },
         {
           title: "item two title",

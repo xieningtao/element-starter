@@ -138,36 +138,7 @@ export default {
         "http://www.158pic.com/uploads/allimg/1811/2-1Q1201T0150-L.jpg",
         "http://www.158pic.com/uploads/allimg/1811/2-1Q1161I4080-L.jpg"
       ],
-      allComments: [
-        // {
-        //   photoUrl:
-        //     "https://ww4.sinaimg.cn/thumb150/678857afgy1g1gaqz2kg2j21400u0wl4.jpg",
-        //   nickName: "火星人",
-        //   commentTime: "2019-03-28",
-        //   content: "122222233"
-        // },
-        // {
-        //   photoUrl:
-        //     "https://ww4.sinaimg.cn/thumb150/678857afgy1g1gaqz2kg2j21400u0wl4.jpg",
-        //   nickName: "火星人",
-        //   commentTime: "2019-03-28",
-        //   content: "122222233"
-        // },
-        // {
-        //   photoUrl:
-        //     "https://ww4.sinaimg.cn/thumb150/678857afgy1g1gaqz2kg2j21400u0wl4.jpg",
-        //   nickName: "火星人",
-        //   commentTime: "2019-03-28",
-        //   content: "122222233"
-        // },
-        // {
-        //   photoUrl:
-        //     "https://ww4.sinaimg.cn/thumb150/678857afgy1g1gaqz2kg2j21400u0wl4.jpg",
-        //   nickName: "火星人",
-        //   commentTime: "2019-03-28",
-        //   content: "122222233"
-        // }
-      ]
+      allComments: []
     };
   },
   created: function() {
