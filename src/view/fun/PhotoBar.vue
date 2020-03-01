@@ -56,28 +56,36 @@ export default {
         this.$refs.photoContainer.scrollLeft++;
       }
     };
-    this.scorllInterval = setInterval(this.scrollLeft, 20);
+    // this.scorllInterval = setInterval(this.scrollLeft, 20);
   },
   computed: {},
   beforeDestroy() {
-    clearInterval(this.scorllInterval);
+    // clearInterval(this.scorllInterval);
   },
   methods: {
     mouseLeave: function(index) {
-      this.scorllInterval = setInterval(this.scrollLeft, 20);
+      // this.scorllInterval = setInterval(this.scrollLeft, 20);
       this.currentIndex = -1;
       window.event.currentTarget.getElementsByClassName(
         "singlePhotoContainer"
       )[0].style.backgroundColor = "white";
+      window.event.currentTarget.getElementsByClassName(
+        "imgBottomShow"
+      )[0].style.backgroundColor = "#c0c0c0bb";
 
       // this.$refs["singlePhotoContainer"][index].style.backgroundColor="transparent"
     },
     mouseOver: function(index) {
-      clearInterval(this.scorllInterval);
+      // clearInterval(this.scorllInterval);
       this.currentIndex = index;
       window.event.currentTarget.getElementsByClassName(
         "singlePhotoContainer"
       )[0].style.backgroundColor = "yellow";
+
+      window.event.currentTarget.getElementsByClassName(
+        "imgBottomShow"
+      )[0].style.backgroundColor = "#333333bb";
+
        this.$refs["singlePhotoContainer"][index].style.backgroundColor="yellow"
     },
    
@@ -87,7 +95,7 @@ export default {
 </script>
 
 <style type="text/scss" lang="scss">
-$picHeight: 540px;
+$picHeight: 480px;
 $picWidth: 300px;
 
 .topContainer {
@@ -152,8 +160,8 @@ $picWidth: 300px;
   width: $picWidth;
   height: $picHeight;
   padding: 4px;
-  margin-left: 1px;
-  margin-right: 1px;
+  margin-left: 2px;
+  margin-right: 2px;
   background-color: white;
 }
 .singlePhoto {
@@ -169,17 +177,21 @@ $picWidth: 300px;
 }
 
 .imgBottomShow {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
   position: absolute;
-  width: $picWidth;
+  width: fit-content;
+  padding: 4px 6px;
   height: auto;
-  /* background-color: #c0c0c0; */
+  background-color: #c0c0c0bb;
   opacity: 1;
-  left: 4px;
-  right: 4px;
-  bottom: 10px;
-  text-align: center;
-  /* margin-left: 4px; */
-  /* margin-right: 4px; */
+  left: 6px;
+  right: 6px;
+  bottom: 6px;
+  // text-align: center;
+  color: white;
+  font-size: 22px;
+  margin: 0 auto;
 }
 
 .fade-enter-active,

@@ -12,7 +12,7 @@
             :class="story.shouldToggle? 'article-content-collapse':'article-content-expand'"
             ref="article-content"
           >
-            <div class="article-content_inner" v-html="story.content" @click="toPage(story,index)"></div>
+            <div class="article-content_inner" v-html="story.content"  @click="toPage($event,story,index)"></div>
             <div class="toggle" @click="toggle(index)" v-if="story.showToggle">展开</div>
           </div>
         </div>
@@ -35,12 +35,14 @@ export default {
     debugger;
   },
   methods: {
+    
     getStories() {
       const query = Bmob.Query("FunnyStory");
       query
         .order("-updatedAt")
         .limit(this.pageSize)
         .skip(this.pageNum * this.pageSize)
+        .find()
         .then(res => {
           console.log(JSON.stringify(res));
           this.stories = res;
@@ -60,7 +62,7 @@ export default {
         }
       }
     },
-    toPage(story, index) {
+    toPage(event,story, index) {
       debugger;
       let routeData = this.$router.resolve({
         name: "funnyStoryDetail",
@@ -140,6 +142,7 @@ export default {
   color: gray;
   position: relative;
   height: 100px;
+  
 }
 
 .article-content-expand {
@@ -162,6 +165,8 @@ export default {
   margin-bottom: 20px;
   height: 100%;
   margin-right: 100px;
+  user-select: none;
+ 
 }
 
 .article-content {

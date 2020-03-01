@@ -9,7 +9,12 @@
           </span>-->
           <img class="imgFun" :src="story.funUrl">
           <div class="article-content-expand" ref="article-content">
-            <div class="article-content_inner" v-html="story.render" @click="toPage(story,index)"></div>
+            <div
+              class="article-content_inner"
+              v-html="story.render"
+              @select="select"
+              @click="toPage($event,story,index)"
+            ></div>
           </div>
           <div class="funStoryAction">
             <div class="actionItem funStoryPraise">
@@ -58,6 +63,7 @@ export default {
     this.getStories();
   },
   methods: {
+    select() {},
     getStories() {
       const query = Bmob.Query("FunnyStory");
       query.order("-updatedAt");
@@ -73,7 +79,7 @@ export default {
           console.log(err);
         });
     },
-    toPage(story, index) {
+    toPage(event, story, index) {
       debugger;
       let routeData = this.$router.resolve({
         name: "funnyStoryDetail",

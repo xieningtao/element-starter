@@ -1,10 +1,10 @@
 <template>
-  <div class="img_preview_root">
+  <div class="img_preview_root" @click="dimissPreView">
     <div class="img_preview_close" @click="dimissPreView">
       <img class="img_icon_error">
     </div>
-    <div class="img_preview_container">
-      <img class="img_preview" :src="preview_url">
+    <div class="img_preview_container" >
+      <img class="img_preview" :src="preview_url" @click.self.stop="doNothing">
     </div>
   </div>
 </template>
@@ -60,6 +60,9 @@ export default {
     // }
   },
   methods: {
+    doNothing(){
+
+    },
     getSubImgs(objectId) {
       // const query = Bmob.Query("SubBeauty");
       // const pointer = Bmob.Pointer("BeautyGroup");

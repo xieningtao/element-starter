@@ -28,15 +28,18 @@
       />
     </el-main>
 
-    
+    <div class="savePhoto" @click="addPhoto">
+      <img :src="thumbnailUrl" class="uploadPlushImg" >
+    </div>
 
-    <!-- <el-dialog title="提示" :visible.sync="dialogVisible" width="30%" :before-close="handleClose">
-      <span>{{dialogContent}}}</span>
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="dialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
-      </span>
-    </el-dialog> -->
+    <div class="uploadDialogContainer" v-show="showDialog">
+      <div class="uploadDialog">
+        <h5>请输入图片地址</h5>
+        <input class="uploadDialogInput" type="text" v-model="imgUrl" placeholder="请输入图片地址">
+        <!-- <div @click="showDialog=false">确定</div> -->
+        <el-button class="uploadDialogConfirm" type="primary" round @click="sure">确定</el-button>
+      </div>
+    </div>
   </el-container>
 </template>
 
@@ -45,7 +48,7 @@ import MavonEditor from "mavon-editor";
 import "mavon-editor/dist/css/index.css";
 import ElRow from "element-ui/packages/row/src/row";
 import ElFooter from "../../node_modules/element-ui/packages/footer/src/main.vue";
-
+const localUrl = "/src/assets/fun/plus.png";
 export default {
   data() {
     return {
@@ -54,7 +57,10 @@ export default {
       title: "",
       articleDiggest: "",
       dialogVisible: false,
-      dialogContent:""
+      dialogContent: "",
+      thumbnailUrl: localUrl,
+      showDialog:false,
+      imgUrl:""
     };
   },
   methods: {
@@ -62,6 +68,15 @@ export default {
       console.info("value: " + value + " render: " + render);
       this.value = value;
       this.render = render;
+    },
+    addPhoto(){
+      debugger
+      this.showDialog = true;
+    },
+    sure(){
+      this.showDialog=false;
+      this.thumbnailUrl = this.imgUrl
+      this.imgUrl = ""
     },
 
     getDiggest(render) {},
@@ -103,18 +118,19 @@ export default {
       const query = Bmob.Query(tableName);
       if (this.title == "") {
         this.dialogVisible = true;
-        alert("标题不能为空")
+        alert("标题不能为空");
         return;
       }
-      if (type !=this.GLOBAL.FUNNY_STORY && this.articleDiggest == "") {
+      if (type != this.GLOBAL.FUNNY_STORY && this.articleDiggest == "") {
         this.dialogVisible = true;
-        alert("摘要不能为空")
+        alert("摘要不能为空");
         return;
       }
       query.set("title", this.title);
       query.set("content", this.value);
       query.set("render", this.render);
-      query.set("diggest",this.articleDiggest );
+      query.set("diggest", this.articleDiggest);
+      query.set("thumbnailUrl",this.thumbnailUrl);
       //   query.set("type", type);
       query
         .save()
@@ -139,7 +155,7 @@ export default {
   width: 100%;
   height: 100%;
 }
-.saveHeader{
+.saveHeader {
   width: 100%;
   padding-left: 0px;
   padding-top: 10px;
@@ -165,6 +181,63 @@ export default {
   left: 40px;
   margin-top: 10px;
   margin-bottom: 20px;
+}
+.uploadPlushImg {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+.savePhoto {
+  position: absolute;
+  top: 10px;
+  right: 100px;
+  width: 100px;
+  height: 130px;
+  background-color: lightblue;
+  z-index: 100;
+}
+.uploadDialogContainer {
+  background-color: gray;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+.uploadDialog {
+  width: 500px;
+  height: 200px;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  text-align: center;
+  //   border: 1px solid blue;
+  background-color: white;
+  //   box-sizing: border-box;
+}
+.uploadDialogInput {
+  width: 80%;
+  height: 30px;
+  display: block;
+  margin: 0 auto;
+}
+.uploadDialogConfirm {
+  position: relative;
+  margin-top: 20px;
+  margin-left: 0px;
+  margin-right: 0px;
+  width: 120px;
 }
 </style>
 

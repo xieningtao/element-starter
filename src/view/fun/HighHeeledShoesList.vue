@@ -12,10 +12,12 @@
             <div class="itemTitle" ref="itemTitle">{{item.title}}</div>
             <div class="item-diggest_inner">{{item.diggest}}</div>
           </div>
-          <img v-bind:src="item.imgUrl" ref="shoesImg">
+          <img v-bind:src="item.thumbnailUrl" ref="shoesImg">
         </div>
       </li>
     </ul>
+
+    <div class="heelSlider"></div>
   </div>
 </template>
 
@@ -23,70 +25,30 @@
 export default {
   data() {
     return {
-      shoesItems: [
-        {
-          title: "item one title",
-          diggest:
-            "item one title ----------------fsfsdlfjlsdjfk---------fjslkfjskljfsdkjfs------------------------------------------------------------------------- jflsjf ksldj fklsj flj ksdjfls jfsd lkfjsdkl",
-          // imgUrl: "https://farm6.staticflickr.com/5591/15008867125_68a8ed88cc_m.jpg",
-          imgUrl:
-            "https://img30.360buyimg.com/popWaterMark/jfs/t1/25080/23/8276/140965/5c753a39E31016a18/a07114c257c0f4ff.jpg",
-          readNum: "10",
-          commentNum: "22",
-          detailId: "adae1b1d8c"
-        },
-        {
-          title: "item two title",
-          diggest: "item two title",
-          // imgUrl: "https://farm6.staticflickr.com/5591/15008867125_68a8ed88cc_m.jpg",
-          imgUrl:
-            "https://img30.360buyimg.com/popWaterMark/jfs/t1/7130/28/15982/173289/5c753a38E50579fd2/78296d1f13e45b83.jpg",
-          readNum: "10",
-          commentNum: "22",
-          detailId: "8393438a0d"
-        },
-        {
-          title: "item two title",
-          diggest: "item two title",
-          // imgUrl: "https://farm6.staticflickr.com/5591/15008867125_68a8ed88cc_m.jpg",
-          imgUrl:
-            "https://img30.360buyimg.com/popWaterMark/jfs/t1/7130/28/15982/173289/5c753a38E50579fd2/78296d1f13e45b83.jpg",
-          readNum: "10",
-          commentNum: "22",
-          detailId: "bc60041687"
-        },
-        {
-          title: "item two title",
-          diggest: "item two title",
-          // imgUrl: "https://farm6.staticflickr.com/5591/15008867125_68a8ed88cc_m.jpg",
-          imgUrl:
-            "https://img30.360buyimg.com/popWaterMark/jfs/t1/7130/28/15982/173289/5c753a38E50579fd2/78296d1f13e45b83.jpg",
-          readNum: "10",
-          commentNum: "22",
-          detailId: "b2e7933d6b"
-        },
-        {
-          title: "item two title",
-          diggest: "item two title",
-          // imgUrl: "https://farm6.staticflickr.com/5591/15008867125_68a8ed88cc_m.jpg",
-          imgUrl:
-            "https://img30.360buyimg.com/popWaterMark/jfs/t1/7130/28/15982/173289/5c753a38E50579fd2/78296d1f13e45b83.jpg",
-          readNum: "10",
-          commentNum: "22"
-        },
-        {
-          title: "item two title",
-          diggest: "item two title",
-          // imgUrl: "https://farm6.staticflickr.com/5591/15008867125_68a8ed88cc_m.jpg",
-          imgUrl:
-            "https://img30.360buyimg.com/popWaterMark/jfs/t1/7130/28/15982/173289/5c753a38E50579fd2/78296d1f13e45b83.jpg",
-          readNum: "10",
-          commentNum: "22"
-        }
-      ]
+      pageSize: 10,
+      pageNum: 0,
+      shoesItems: []
     };
   },
+  created: function() {
+    this.getHeelList();
+  },
   methods: {
+    getHeelList() {
+      const query = Bmob.Query("Heel");
+      query.order("-updatedAt");
+      query.limit(this.pageSize);
+      query.skip(this.pageNum * this.pageSize);
+      query
+        .find()
+        .then(res => {
+          console.log(JSON.stringify(res));
+          this.shoesItems = res;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
     enter(index) {
       console.log("enter");
       window.event.currentTarget.getElementsByTagName(
@@ -107,7 +69,7 @@ export default {
       // debugger
       let routeData = this.$router.resolve({
         name: "shoesDetail",
-        params: { id: item.detailId }
+        params: { id: item.objectId }
       });
       window.open(routeData.href, "_blank");
     }
@@ -115,20 +77,44 @@ export default {
 };
 </script>
 
-<style>
+ <style lang="scss" scoped>
+ $marginWidht:10px;
+ $leftPageWidth:750px;
 .shoesContainer {
-  background-color: lightpink;
-  padding-bottom: 10px;
-  padding-top: 10px;
+  /* background-color: lightpink; */
+  // padding-bottom: 10px;
+  padding-top: marginWidht;
+  display: flex;
+  flex-direction: row;
+  padding-left: $marginWidht;
+  padding-right: marginWidht;
+
+  .shoesList {
+    list-style-type: none;
+    margin: 0px;
+    width: $leftPageWidth;
+    padding: 0px;
+    li{
+      padding: 0px;
+    }
+  }
+
+  .heelSlider {
+    margin-left: 10px;
+    background-color: lightcoral;
+    flex-grow: 2;
+    margin-bottom: 10px;
+  }
 }
+
 .item {
-  width: 80%;
-  height: 150px;
+  width: 100%;
+  height: 120px;
   display: flex;
   margin: 0px auto;
   flex-direction: row;
   background-color: white;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   margin-bottom: 10px;
   box-shadow: 2px 2px 3px #aaaaaa;
   overflow: hidden;
@@ -153,23 +139,16 @@ export default {
   transition: 0.2s;
 }
 
-.shoesList {
-  list-style-type: none;
-  padding-left: 20px;
-  padding-right: 20px;
-  margin-top: 0px;
-}
-
 .itemTitle {
   margin-top: 10px;
   margin-left: 10px;
-  font-size: 30px;
+  font-size: 20px;
   color: black;
 }
 .item-diggest_inner {
   margin-top: 10px;
   margin-left: 10px;
-  font-size: 20px;
+  font-size: 14px;
   color: gray;
 }
 </style>
